@@ -12,6 +12,8 @@ Practice writing unit, integration and end to end tests using the following tech
 
 Put all tests in a continuous integration pipeline using GitHub Actions.
 
+Add monitoring and alerting capabilities to maintain quality of your application in production.
+
 Stretch goal: look at other software quality checks I can add to the CI pipeline and learn e.g. static code analysis, Static application security testing (SAST), and dynamic application security testing (DAST).
 
 ## Features
