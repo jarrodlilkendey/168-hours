@@ -16,6 +16,20 @@ Stretch goal: look at other software quality checks I can add to the CI pipeline
 
 ## Features
 
+1. Create a schedule for a walk by drag and dropping events
+2. Tool displays the free time you have remaining
+3. Capture a list of goals from prepopulated drop down lists
+4. Schedule will be created for you showing when you can work on your goals outside of your existing commitments
+
+## Technical Design
+
+1. NextJS + Pages Router + API Router
+2. NextAuth for authentication (using email provider as this will not be a commercial project)
+3. Prisma for an ORM on top of a Postgres DB
+4. Typescript
+5. Vercel will be used for hosting
+6. PostgresDB hosted on Supabase
+
 ## Usage
 
 1. Follow the .env file templates to complete `.env`, `env.local`, `env.test.local`
