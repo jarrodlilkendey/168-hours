@@ -18,6 +18,12 @@ Stretch goal: look at other software quality checks I can add to the CI pipeline
 
 Adding state management with redux. Including testing.
 
+## UX
+
+1. Sign-in / register flow
+2. My Schedules - /schedules - displays a list of schedules you own, with a button to create a new schedule
+3. Schedule details - /schedules/<scheduleId> - displays the individual schedule with can be editted
+
 ## Features
 
 1. Create a schedule for a walk by drag and dropping events

@@ -26,7 +26,7 @@ export default NextAuth({
                 },
             },
             async authorize(credentials) {
-                console.log('authorize', credentials)
+                // console.log('authorize', credentials)
                 const { data: user } = await axiosInstance({
                     url: `/api/${routes.users}`,
                     method: 'POST',
@@ -34,7 +34,7 @@ export default NextAuth({
                     headers: { 'Content-Type': 'application/json' },
                 })
 
-                console.log('user', user)
+                // console.log('user', user)
 
                 // If no error and we have user data, return it
                 // Return null if user data could not be retrieved
@@ -56,7 +56,7 @@ export default NextAuth({
         async jwt({ token, user }) {
             // reference: https://next-auth.js.org/configuration/callbacks#jwt-callback
             // Persist the JWT token to the token right after signin
-            console.log('jwt', token, user)
+            // console.log('jwt', token, user)
             if (user) {
                 token.user = user //.user
             }
@@ -66,7 +66,7 @@ export default NextAuth({
             // reference: https://next-auth.js.org/configuration/callbacks#session-callback
             // Send properties to the client, like an access_token from a provider
 
-            console.log('session', session, token, user)
+            // console.log('session', session, token, user)
             const tokenUser = token.user as User
 
             session.token = tokenUser.token

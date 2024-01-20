@@ -41,9 +41,41 @@ const createUsers = async () => {
     }
 }
 
+const createSchedules = async () => {
+    const schedulesData = [
+        {
+            name: 'Schedule 1',
+            userId: 1,
+            id: 1,
+        },
+        {
+            name: 'Schedule 2',
+            userId: 1,
+            id: 2,
+        },
+    ]
+
+    for (const schedule of schedulesData) {
+        const existingSchedule = await prisma.schedule.findFirst({
+            where: { id: schedule.id },
+        })
+        if (existingSchedule) {
+            const result = await prisma.schedule.update({
+                where: { id: existingSchedule.id },
+                data: schedule,
+            })
+            console.log(`\tupdated schedule ${result.name}`)
+        } else {
+            const result = await prisma.schedule.create({ data: schedule })
+            console.log(`\tcreated schedule ${result.name}`)
+        }
+    }
+}
+
 async function main() {
     console.log('Start seeding ...')
     await createUsers()
+    await createSchedules()
     console.log('Seeding finished.')
 }
 

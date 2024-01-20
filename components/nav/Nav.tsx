@@ -13,8 +13,7 @@ export function NavBar(): React.ReactElement {
     const userName = session?.user?.email ?? 'My Profile'
 
     const links = [
-        { display: 'New Character', route: routes.character },
-        { display: 'Mobsters', route: routes.mobsters },
+        { display: 'My Schedules', route: routes.schedules },
         { display: isLoggedIn ? userName : 'Sign In', route: routes.user },
     ]
 

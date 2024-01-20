@@ -7,7 +7,7 @@ import { WeeklySchedule } from '@/components/schedule/WeeklySchedule'
 export default function Schedule() {
     return (
         <div>
-            <WeeklySchedule schedule={{ id: 1, name: 'Schedule Name' }} />
+            <WeeklySchedule />
         </div>
     )
 }
