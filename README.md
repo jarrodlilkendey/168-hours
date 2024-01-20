@@ -16,6 +16,8 @@ Add monitoring and alerting capabilities to maintain quality of your application
 
 Stretch goal: look at other software quality checks I can add to the CI pipeline and learn e.g. static code analysis, Static application security testing (SAST), and dynamic application security testing (DAST).
 
+Adding state management with redux. Including testing.
+
 ## Features
 
 1. Create a schedule for a walk by drag and dropping events
