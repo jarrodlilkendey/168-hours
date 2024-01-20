@@ -1,0 +1,54 @@
+name: CI
+on: [push]
+jobs:
+    test:
+        name: Test code base
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+            - name: Install packages
+              run: npm install
+            - name: Lint
+              run: npm run lint
+            - name: Setup database
+              env:
+                  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+              run: |
+                  npm run prisma:init
+                  npm run prisma:migrate:deploy
+            - name: Unit Tests (Jest, React Test Library and Mock Service Worker UI tests)
+              run: npm run test:ui
+            - name: API Integration Tests (Jest and next-test-api-route-handler API tests)
+              env:
+                  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+              run: npm run test:api
+            - name: create .env
+              run: |
+                  touch .env.test.local
+                  echo CYPRESS_baseUrl=${{ secrets.NEXTAUTH_URL }} >> .env.test.local
+                  echo DATABASE_URL=${{ secrets.DATABASE_URL }} >> .env.test.local
+                  echo NODE_ENV='test' >> .env.test.local
+                  echo REVALIDATION_SECRET=${{ secrets.REVALIDATION_SECRET }} >> .env.test.local
+                  echo APP_ENV='test' >> .env.test.local
+                  echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env.test.local
+                  echo NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} >> .env.test.local
+                  echo NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} >> .env.test.local
+                  echo TEST_USER_EMAIL=${{ secrets.TEST_USER_EMAIL }} >> .env.test.local
+                  echo TEST_USER_PASSWORD=${{ secrets.TEST_USER_PASSWORD }} >> .env.test.local
+            - name: cat .env
+              run: cat .env.test.local
+            - name: Cypress run
+              uses: cypress-io/github-action@v6
+              with:
+                  build: npm run build:test
+                  start: npm run cypress:start #npm run cypress:run
+                  wait-on: http://localhost:3000
+                  config: baseUrl=http://localhost:3000
+                  wait-on-timeout: 120
+              env:
+                  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+                  REVALIDATION_SECRET: ${{ secrets.REVALIDATION_SECRET }}
+                  TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+                  TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
+                  #       npm run cypress:run
