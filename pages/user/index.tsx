@@ -1,4 +1,3 @@
-import { u } from 'msw/lib/glossary-de6278a9'
 import { useSession } from 'next-auth/react'
 
 // data strategy: Client-Side Rendering with SWR (within UserReservations component)

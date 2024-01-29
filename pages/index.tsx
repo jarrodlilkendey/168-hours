@@ -1,5 +1,5 @@
 import Link from 'next/link'
-
+import { SignOutButton } from '@/components/nav/SignOutButton'
 export default function Home() {
     return (
         <div>

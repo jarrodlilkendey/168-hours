@@ -18,6 +18,8 @@ Stretch goal: look at other software quality checks I can add to the CI pipeline
 
 Adding state management with redux. Including testing.
 
+Use infra as code with DigitalOcean. Use docker containers to spin up database. Don't use Supabase or AWS managed databases.
+
 ## UX
 
 1. Sign-in / register flow

@@ -1,44 +1,47 @@
 import { useSession } from 'next-auth/react'
 import React from 'react'
+import Link from 'next/link'
 
-import { routes } from '@/lib/axios/routes'
 import { useSessionStatus } from '@/lib/users/useSessionStatus'
+import { routes } from '@/lib/axios/routes'
+import MaxWidthWrapper from '../_common/MaxWidthWrapper'
+import UserAccountNav from './UserAccountNav'
+import MobileNav from '../nav/MobileNav'
 
-import { NavLink } from './NavLink'
-import { SignOutButton } from './SignOutButton'
-
-export function NavBar(): React.ReactElement {
+export function NavBar() {
     const { isLoading, isLoggedIn } = useSessionStatus()
     const { data: session } = useSession()
-    const userName = session?.user?.email ?? 'My Profile'
-
-    const links = [
-        { display: 'My Schedules', route: routes.schedules },
-        { display: isLoggedIn ? userName : 'Sign In', route: routes.user },
-    ]
 
     return (
-        <div>
-            <div>
-                <div>
-                    <div>
-                        <NavLink href='/'>
-                            <span>Home</span>
-                        </NavLink>
-                    </div>
-                    <div>
-                        {links.map((link) => (
-                            <NavLink key={link.display} href={`/${link.route}`}>
-                                {link.display}
-                            </NavLink>
-                        ))}
+        <nav className='sticky inset-x-0 top-0 z-30 h-14 w-full border-b border-gray-200 backdrop-blur-lg transition-all'>
+            <MaxWidthWrapper>
+                <div className='flex h-14 items-center justify-between border-b border-zinc-200'>
+                    <Link href='/' className='z-40 flex font-semibold'>
+                        <span>168 Hours</span>
+                    </Link>
+
+                    <MobileNav isAuth={session && session.user} />
+
+                    <div className='hidden items-center space-x-4 sm:flex'>
+                        <Link href='/blog'>Blog</Link>
+                        {!isLoggedIn || !session || !session.user ? (
+                            <>
+                                <Link href={routes.login}>Sign in</Link>
+                            </>
+                        ) : (
+                            <>
+                                <Link href='/dashboard'>Dashboard</Link>
+
+                                <UserAccountNav
+                                    name='Your Account'
+                                    email={session.user.user.email}
+                                    imageUrl={''}
+                                />
+                            </>
+                        )}
                     </div>
                 </div>
-                <div>
-                    {isLoading && <p>Loading...</p>}
-                    <SignOutButton />
-                </div>
-            </div>
-        </div>
+            </MaxWidthWrapper>
+        </nav>
     )
 }

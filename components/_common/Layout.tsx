@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 
 import { NavBar } from '../nav/Nav'
-
+import MaxWidthWrapper from './MaxWidthWrapper'
 interface Props {
     children: ReactNode
 }
@@ -12,7 +12,9 @@ export const Layout = ({ children }: Props) => (
             <NavBar />
         </div>
         <div>
-            <main>{children}</main>
+            <MaxWidthWrapper>
+                <main>{children}</main>
+            </MaxWidthWrapper>
         </div>
     </div>
 )
