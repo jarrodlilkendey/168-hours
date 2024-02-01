@@ -7,7 +7,7 @@ describe('Home Page tests', () => {
         render(<Home />)
 
         expect(
-            screen.getByRole('heading', { name: 'Mafia Wars Home' })
+            screen.getByRole('heading', { name: '168 Hours' })
         ).toBeInTheDocument()
     })
 })
