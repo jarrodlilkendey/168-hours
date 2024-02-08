@@ -161,7 +161,19 @@ export default function FreeTimeCalculator() {
                                 {section.fields.map((fieldItem) => (
                                     <FormField
                                         control={form.control}
-                                        name={fieldItem.name}
+                                        name={
+                                            fieldItem.name as
+                                                | 'age'
+                                                | 'sleeping'
+                                                | 'working'
+                                                | 'commuting'
+                                                | 'exercise'
+                                                | 'eating'
+                                                | 'chores'
+                                                | 'grooming'
+                                                | 'parenting'
+                                                | 'other'
+                                        }
                                         key={fieldItem.name}
                                         render={({ field }) => (
                                             <FormItem>

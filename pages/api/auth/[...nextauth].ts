@@ -26,7 +26,7 @@ export default NextAuth({
                 },
             },
             async authorize(credentials) {
-                // console.log('authorize', credentials)
+                console.log('authorize', credentials)
                 const { data: user } = await axiosInstance({
                     url: `/api/${routes.users}`,
                     method: 'POST',
@@ -34,7 +34,7 @@ export default NextAuth({
                     headers: { 'Content-Type': 'application/json' },
                 })
 
-                // console.log('user', user)
+                // console.log('authorize user', user)
 
                 // If no error and we have user data, return it
                 // Return null if user data could not be retrieved

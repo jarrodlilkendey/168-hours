@@ -11,11 +11,11 @@ const handler = createHandler()
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
     const { email, password } = req.body
 
-    console.log('users api route handler', email, password)
+    // console.log('users api route handler', email, password)
 
     // auth user
     const dbUser = (await getUserByEmail(email)) as AuthUser
-    console.log('dbUser', dbUser)
+    // console.log('dbUser', dbUser)
 
     if (!dbUser) return res.status(400).json({ message: 'Invalid login' })
 

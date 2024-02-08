@@ -1,4 +1,5 @@
 import Link from 'next/link'
+
 export default function Home() {
     return (
         <div>
@@ -9,9 +10,9 @@ export default function Home() {
             <ul>
                 <li>Time is finite</li>
                 <li>There are no mulligans</li>
-                <li>Money can't buyback time</li>
-                <li>Time can't be taxed</li>
-                <li>Time can't be inflated away or debased</li>
+                <li>Money cannot buyback time</li>
+                <li>Time cannot be taxed</li>
+                <li>Time cannot be inflated away or debased</li>
             </ul>
             <h2 className='text-lg font-bold'>Tools to savour your time</h2>
             <ul>

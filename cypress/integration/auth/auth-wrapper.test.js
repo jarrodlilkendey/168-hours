@@ -1,5 +1,5 @@
 it('runs auth flow for successful login to protected page', () => {
-    cy.task('db:reset').visit('/user')
+    cy.task('db:reset').visit('/login')
 
     // shows sign in form
     cy.findByRole('heading', { name: /Sign in to your account/i }).should(
@@ -25,7 +25,7 @@ it('runs auth flow for successful login to protected page', () => {
 })
 
 it('runs auth flow for failed login to protected page', () => {
-    cy.task('db:reset').visit('/user')
+    cy.task('db:reset').visit('/login')
 
     // shows sign in form
     cy.findByRole('heading', { name: /Sign in to your account/i }).should(

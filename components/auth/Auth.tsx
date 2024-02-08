@@ -14,7 +14,8 @@ export const Auth: React.FC<{ children: ReactElement }> = ({ children }) => {
     // reference: https://nextjs.org/docs/messages/no-router-instance
     useEffect(() => {
         if (!isLoggedIn) {
-            router.push(`/auth/signin?callbackUrl=${router.asPath}`)
+            router.push(`/login?callbackUrl=${router.asPath}`)
+            // router.push(`/auth/signin?callbackUrl=${router.asPath}`)
         }
     }, [isLoggedIn, router])
 
