@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button'
 interface FormResult {
     freeTimePerWeek: number
     freeTimePerDay: number
+    isInvalid: boolean
 }
 
 export default function FreeTimeCalculator() {
@@ -140,7 +141,15 @@ export default function FreeTimeCalculator() {
 
         const freeTimePerDay = freeTimePerWeek / 7
 
-        setFormResult({ freeTimePerWeek, freeTimePerDay })
+        if (freeTimePerWeek <= 0) {
+            setFormResult({
+                freeTimePerWeek: 0,
+                freeTimePerDay: 0,
+                isInvalid: true,
+            })
+        } else {
+            setFormResult({ freeTimePerWeek, freeTimePerDay, isInvalid: false })
+        }
     }
 
     return (
@@ -205,10 +214,18 @@ export default function FreeTimeCalculator() {
             {formResult && (
                 <div className='mb-1 w-full rounded p-2'>
                     <div>
-                        <p>
-                            Free time: {formResult.freeTimePerWeek} hours per
-                            week or {formResult.freeTimePerDay} hours per day
-                        </p>
+                        <h2 className='text-lg font-bold'>Results</h2>
+
+                        {formResult.isInvalid && (
+                            <p>You have entered invalid numbers.</p>
+                        )}
+
+                        {!formResult.isInvalid && (
+                            <ul>
+                                <li>{`Free time hours per week: ${formResult.freeTimePerWeek}`}</li>
+                                <li>{`Free time hours per day: ${formResult.freeTimePerDay}`}</li>
+                            </ul>
+                        )}
                     </div>
                 </div>
             )}
