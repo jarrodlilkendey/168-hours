@@ -145,7 +145,7 @@ export default function FreeTimeCalculator() {
 
     return (
         <div>
-            <h1 className='text-3xl font-bold'>Free Time Calculaotr</h1>
+            <h1 className='text-3xl font-bold'>Free Time Calculator</h1>
 
             <div className='mb-1 w-full rounded p-2'>
                 <Form {...form}>
