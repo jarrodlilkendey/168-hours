@@ -152,6 +152,7 @@ export default function FreeTimeCalculator() {
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
                         className='space-y-2'
+                        name=''
                     >
                         {formItems.map((section) => (
                             <div key={section.section}>
