@@ -1,26 +1,24 @@
 import { testApiHandler } from 'next-test-api-route-handler'
 
-import { Mobster } from '@prisma/client'
+import { Schedule } from '@prisma/client'
 
-import mobsterHandler from '@/pages/api/mobsters'
+import schedulesHandler from '@/pages/api/schedules'
 
 // ------------------------------------------------------------------ //
 // EXPECTED GET DATA
 //
 // ids don't reset after deleteMany, so actual number is not predictable depending
 // on which tests ran before this one.
-const generateExpectedMobsters = (json: Array<Mobster>) => [
+const generateExpectedSchedules = (json: Array<Schedule>) => [
     {
         id: json[0].id,
-        name: 'tony soprano',
+        name: 'Schedule 1',
+        userId: 1,
     },
     {
         id: json[1].id,
-        name: 'paulie walnuts',
-    },
-    {
-        id: json[2].id,
-        name: 'christopher moltisanti',
+        name: 'Schedule 2',
+        userId: 1,
     },
 ]
 
@@ -28,9 +26,9 @@ const generateExpectedMobsters = (json: Array<Mobster>) => [
 // TEST DATA
 const testData = [
     {
-        endpoint: 'mobsters',
-        handler: mobsterHandler,
-        generateExpectedData: generateExpectedMobsters,
+        endpoint: 'schedules',
+        handler: schedulesHandler,
+        generateExpectedData: generateExpectedSchedules,
     },
 ]
 

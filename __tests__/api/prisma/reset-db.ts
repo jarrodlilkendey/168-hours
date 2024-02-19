@@ -10,28 +10,27 @@ import { PrismaClient } from '@prisma/client'
 const prismaClient = new PrismaClient()
 
 const deleteAll = async () => {
-    await prismaClient.mobster.deleteMany()
+    await prismaClient.schedule.deleteMany()
 }
 
-const createMobsters = async () => {
-    const mobsterData = [
+const createSchedules = async () => {
+    const scheduleData = [
         {
-            name: 'tony soprano',
+            name: 'Schedule 1',
+            userId: 1,
         },
         {
-            name: 'paulie walnuts',
-        },
-        {
-            name: 'christopher moltisanti',
+            name: 'Schedule 2',
+            userId: 1,
         },
     ]
-    await prismaClient.mobster.createMany({ data: mobsterData })
+    await prismaClient.schedule.createMany({ data: scheduleData })
 }
 
 export const resetDB = async () => {
     try {
         await deleteAll()
-        await createMobsters()
+        await createSchedules()
     } catch (error) {
         console.error('Failed to seed DB')
         console.error(error)
