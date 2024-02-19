@@ -64,6 +64,20 @@ export default function Home() {
                         </Link>
                     </div>
                 </div>
+                <div>
+                    <div>
+                        <h3 className='text-base font-bold'>Habit Tracker</h3>
+                    </div>
+                    <div className='mb-4'>Track your habits over a month</div>
+                    <div>
+                        <Link
+                            href='/habits'
+                            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                        >
+                            Try It
+                        </Link>
+                    </div>
+                </div>
             </div>
         </div>
     )
