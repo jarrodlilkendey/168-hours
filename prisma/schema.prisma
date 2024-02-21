@@ -23,6 +23,7 @@ model User {
   keylen Int
   digest String
   schedules Schedule[]
+  timeEntries TimeEntry[]
 }
 
 model Schedule {
@@ -31,3 +32,19 @@ model Schedule {
   User      User      @relation(fields: [userId], references: [id])
   userId    Int
 }
+
+model TimeEntry {
+  id        Int     @id @default(autoincrement())
+  label     String
+  start     DateTime
+  end       DateTime?
+  User      User      @relation(fields: [userId], references: [id])
+  userId    Int
+  // Project   Project?   @relation(fields: [projectId], references: [id])
+  // projectId Int?
+}
+
+// model Project {
+//   id    Int     @id @default(autoincrement())
+//   name  String
+// }

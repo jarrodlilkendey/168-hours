@@ -3,4 +3,5 @@ export enum routes {
     user = 'user',
     users = 'users',
     login = 'login',
+    track = 'track',
 }
