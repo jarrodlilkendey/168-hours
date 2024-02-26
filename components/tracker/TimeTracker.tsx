@@ -6,6 +6,7 @@ import useSWR from 'swr'
 import { axiosInstance } from '@/lib/axios/axiosInstance'
 import { routes } from '@/lib/axios/routes'
 import ProjectEntryForm from './ProjectEntryForm'
+import SummaryTimeEntries from './SummaryTimeEntries'
 
 export default function TimeTracker() {
     const FIFTEEN_SECONDS = 15 * 1000
@@ -57,6 +58,12 @@ export default function TimeTracker() {
             {myProjects && <TimeTrackerEntryForm projects={myProjects} />}
             {myTimeEntries && myProjects && (
                 <MyTimeEntries
+                    timeEntries={myTimeEntries}
+                    projects={myProjects}
+                />
+            )}
+            {myTimeEntries && myProjects && (
+                <SummaryTimeEntries
                     timeEntries={myTimeEntries}
                     projects={myProjects}
                 />
