@@ -24,6 +24,7 @@ model User {
   digest String
   schedules Schedule[]
   timeEntries TimeEntry[]
+  projects Project[]
 }
 
 model Schedule {
@@ -40,11 +41,14 @@ model TimeEntry {
   end       DateTime?
   User      User      @relation(fields: [userId], references: [id])
   userId    Int
-  // Project   Project?   @relation(fields: [projectId], references: [id])
-  // projectId Int?
+  Project   Project?   @relation(fields: [projectId], references: [id])
+  projectId Int?
 }
 
-// model Project {
-//   id    Int     @id @default(autoincrement())
-//   name  String
-// }
+model Project {
+  id    Int     @id @default(autoincrement())
+  name  String
+  timeEntries TimeEntry[]
+  User      User      @relation(fields: [userId], references: [id])
+  userId    Int
+}

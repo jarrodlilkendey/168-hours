@@ -16,28 +16,43 @@ import {
 } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 
-const createEntryViaAPI = async ({ label }) => {
+import { Project } from '@prisma/client'
+
+interface ComponentProps {
+    projects: Project[]
+}
+
+const createEntryViaAPI = async ({ label, projectId }) => {
+    let projectIdNumber = null
+    if (projectId != '') {
+        projectIdNumber = parseInt(projectId)
+    }
+
     const { data } = await axiosInstance.post(`/api/${routes.track}`, {
         label,
         userId: 1,
         start: new Date(),
+        projectId: projectIdNumber,
     })
     return data
 }
 
-export default function TimeTrackerEntryForm() {
+export default function TimeTrackerEntryForm({ projects }: ComponentProps) {
     const formSchema = z.object({
         label: z.string(),
+        projectId: z.string(),
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             label: '',
+            projectId: '',
         },
     })
 
     function onSubmit(values: z.infer<typeof formSchema>) {
+        console.log('values', values)
         createEntryViaAPI(values)
     }
 
@@ -62,6 +77,35 @@ export default function TimeTrackerEntryForm() {
                             </FormItem>
                         )}
                     />
+
+                    {projects.length > 0 && (
+                        <FormField
+                            control={form.control}
+                            name={'projectId'}
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Project</FormLabel>
+                                    <FormControl>
+                                        <select {...field}>
+                                            {[
+                                                { id: '', name: '' },
+                                                ...projects,
+                                            ].map((project) => (
+                                                <option
+                                                    key={project.id}
+                                                    value={project.id}
+                                                >
+                                                    {project.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    )}
+
                     <Button type='submit'>Start Recording </Button>
                 </form>
             </Form>

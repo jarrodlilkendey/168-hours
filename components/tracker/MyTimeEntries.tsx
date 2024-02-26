@@ -2,7 +2,7 @@ import { axiosInstance } from '@/lib/axios/axiosInstance'
 import { routes } from '@/lib/axios/routes'
 
 import { Button } from '@/components/ui/button'
-import { TimeEntry } from '@prisma/client'
+import { Project, TimeEntry } from '@prisma/client'
 import { useState } from 'react'
 import { intervalToDuration } from 'date-fns'
 import { useEffect } from 'react'
@@ -29,6 +29,7 @@ const stopTimerEntryViaAPI = async ({ timeEntryId }) => {
 
 interface ComponentProps {
     timeEntries: TimeEntry[]
+    projects: Project[]
 }
 
 interface Counter {
@@ -38,7 +39,10 @@ interface Counter {
     seconds: number
 }
 
-export default function MyTimeEntries({ timeEntries }: ComponentProps) {
+export default function MyTimeEntries({
+    timeEntries,
+    projects,
+}: ComponentProps) {
     const [timeCounters, setTimeCounters] = useState<Counter[]>([])
 
     function updateCounters() {
@@ -88,7 +92,22 @@ export default function MyTimeEntries({ timeEntries }: ComponentProps) {
             {timeEntries.length == timeCounters.length &&
                 timeEntries.map((timeEntry, index) => (
                     <div key={timeEntry.id} className='flex justify-between'>
-                        <div>{timeEntry.label}</div>
+                        <div>
+                            {timeEntry.label}{' '}
+                            {timeEntry.projectId != null ? (
+                                <span className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10'>
+                                    {
+                                        projects.find(
+                                            (p) => p.id == timeEntry.projectId
+                                        )!.name
+                                    }
+                                </span>
+                            ) : (
+                                <span className='inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10'>
+                                    no project
+                                </span>
+                            )}
+                        </div>
                         <div>
                             {timeCounters[index].days}d{' '}
                             {timeCounters[index].hours}h{' '}
