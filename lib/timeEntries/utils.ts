@@ -1,5 +1,17 @@
 import { TimeEntry } from '@prisma/client'
-import { differenceInSeconds, intervalToDuration } from 'date-fns'
+import {
+    differenceInSeconds,
+    intervalToDuration,
+    addDays,
+    startOfDay,
+    endOfDay,
+} from 'date-fns'
+
+export interface DayPoints {
+    label: string
+    startOfDayDate: Date
+    endOfDayDate: Date
+}
 
 export function durationInSeconds(timeEntry: TimeEntry): number {
     if (timeEntry.end == null) {
@@ -56,4 +68,17 @@ export function formatDurationInSeconds(durationInSeconds: number): string {
     const formatted = daysHoursMinutesSeconds.map(zeroPad).join(':')
 
     return formatted
+}
+
+export function generateDailyPoints(from: Date, to: Date): DayPoints[] {
+    let dayPoints: DayPoints[] = []
+
+    for (let date = from; date <= to; date = addDays(date, 1)) {
+        dayPoints.push({
+            label: date.toLocaleDateString('en-GB'),
+            startOfDayDate: startOfDay(date),
+            endOfDayDate: endOfDay(date),
+        })
+    }
+    return dayPoints
 }

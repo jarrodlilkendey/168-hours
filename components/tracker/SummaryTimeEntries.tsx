@@ -14,18 +14,30 @@ import { DateRange } from 'react-day-picker'
 import {
     formatDurationInSeconds,
     durationInSeconds,
+    generateDailyPoints,
 } from '../../lib/timeEntries/utils'
-import { set } from 'cypress/types/lodash'
+import StackedBarChart from '../_common/StackedBarChart'
+import {
+    StackedBarChartDataPoint,
+    StackedBarChartSegment,
+} from '../_common/StackedBarChart'
 
 interface ComponentProps {
     timeEntries: TimeEntry[]
     projects: Project[]
 }
 
+interface ProjectData {
+    id: number
+    name: string
+}
+
 interface SummaryData {
     timeEntryCount: number
-    uniqueProjectIds: number[]
+    uniqueProjects: ProjectData[]
     totalSeconds: number
+    dailyTimeByProjectData: StackedBarChartDataPoint[]
+    dailyTimeByProjectSegments: StackedBarChartSegment[]
 }
 
 export default function SummaryTimeEntries({
@@ -38,28 +50,133 @@ export default function SummaryTimeEntries({
     })
 
     useEffect(() => {
-        let filteredTimeEntries = filterTimeEntries()
+        if (date && date.from && date.to) {
+            let filteredTimeEntries = filterTimeEntries()
 
-        let filteredSummaryData = {
-            timeEntryCount: 0,
-            uniqueProjectIds: [],
-            totalSeconds: 0,
-        } as SummaryData
+            let filteredSummaryData = {
+                timeEntryCount: 0,
+                uniqueProjects: [],
+                totalSeconds: 0,
+                dailyTimeByProjectData: [],
+                dailyTimeByProjectSegments: [],
+            } as SummaryData
 
-        for (let timeEntry of filteredTimeEntries) {
-            filteredSummaryData.timeEntryCount++
-            filteredSummaryData.totalSeconds += durationInSeconds(timeEntry)
-            if (
-                timeEntry.projectId &&
-                !filteredSummaryData.uniqueProjectIds.includes(
-                    timeEntry.projectId
-                )
-            ) {
-                filteredSummaryData.uniqueProjectIds.push(timeEntry.projectId)
+            let days = generateDailyPoints(date.from, date.to)
+            let data = []
+            for (let day of days) {
+                data.push({
+                    name: day.label,
+                    values: [1000, 2000, 3000],
+                })
             }
-        }
 
-        setSummaryDate(filteredSummaryData)
+            // const data = [
+            //     {
+            //         name: 'Page A',
+            //         uv: 4000,
+            //         pv: 2400,
+            //         amt: 2400,
+            //         vars: [1000, 2000, 3000],
+            //     },
+            //     {
+            //         name: 'Page B',
+            //         uv: 3000,
+            //         pv: 1398,
+            //         amt: 2210,
+            //         vars: [1000, 2000, 3000],
+            //     },
+            //     {
+            //         name: 'Page C',
+            //         uv: 2000,
+            //         pv: 9800,
+            //         amt: 2290,
+            //         vars: [1000, 2000, 3000],
+            //     },
+            //     {
+            //         name: 'Page D',
+            //         uv: 2780,
+            //         pv: 3908,
+            //         amt: 2000,
+            //         vars: [1000, 2000, 3000],
+            //     },
+            //     {
+            //         name: 'Page E',
+            //         uv: 1890,
+            //         pv: 4800,
+            //         amt: 2181,
+            //         vars: [1000, 2000, 3000],
+            //     },
+            //     {
+            //         name: 'Page F',
+            //         uv: 2390,
+            //         pv: 3800,
+            //         amt: 2500,
+            //         vars: [1000, 2000, 3000],
+            //     },
+            //     {
+            //         name: 'Page G',
+            //         uv: 3490,
+            //         pv: 4300,
+            //         amt: 2100,
+            //         vars: [1000, 2400, 3000, 0, 1000],
+            //     },
+            // ]
+
+            const segments = [
+                {
+                    dataKey: 'values[0]',
+                    stackId: 'a',
+                    color: '#8884d8',
+                    name: 'Project 1',
+                },
+                {
+                    dataKey: 'values[1]',
+                    stackId: 'a',
+                    color: '#82ca9d',
+                    name: 'Project 2',
+                },
+                {
+                    dataKey: 'values[2]',
+                    stackId: 'a',
+                    color: '#6ff',
+                    name: 'Project 3',
+                },
+                {
+                    dataKey: 'values[3]',
+                    stackId: 'a',
+                    color: '#eff',
+                    name: 'Project 4',
+                },
+                {
+                    dataKey: 'values[4]',
+                    stackId: 'a',
+                    color: '#e3f',
+                    name: 'Project 5',
+                },
+            ]
+
+            filteredSummaryData.dailyTimeByProjectData = data
+            filteredSummaryData.dailyTimeByProjectSegments = segments
+
+            for (let timeEntry of filteredTimeEntries) {
+                filteredSummaryData.timeEntryCount++
+                filteredSummaryData.totalSeconds += durationInSeconds(timeEntry)
+                if (
+                    timeEntry.projectId &&
+                    !filteredSummaryData.uniqueProjects.find(
+                        (p) => p.id == timeEntry.projectId
+                    )
+                ) {
+                    filteredSummaryData.uniqueProjects.push({
+                        id: timeEntry.projectId,
+                        name: projects.find((p) => p.id == timeEntry.projectId)!
+                            .name,
+                    })
+                }
+            }
+
+            setSummaryDate(filteredSummaryData)
+        }
     }, [date])
 
     const [summaryData, setSummaryDate] = useState<SummaryData | undefined>()
@@ -109,7 +226,7 @@ export default function SummaryTimeEntries({
                         <li>Time Entry Count: {summaryData.timeEntryCount}</li>
                         <li>
                             Unique Project Count:{' '}
-                            {summaryData.uniqueProjectIds.length}
+                            {summaryData.uniqueProjects.length}
                         </li>
                         <li>
                             Total Time Tracked:{' '}
@@ -168,6 +285,18 @@ export default function SummaryTimeEntries({
                         </div>
                     </div>
                 ))}
+
+            <div>TODO: daily bar chart color coded by different projects</div>
+            {summaryData && (
+                <div className='h-[400px]'>
+                    <StackedBarChart
+                        data={summaryData.dailyTimeByProjectData}
+                        segments={summaryData.dailyTimeByProjectSegments}
+                    />
+                </div>
+            )}
+            <div>TODO: pie chart color coded by different projects</div>
+            {/* https://www.youtube.com/watch?v=eIRqGui1vQc */}
         </div>
     )
 }
