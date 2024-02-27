@@ -1,13 +1,31 @@
 import { Project, TimeEntry } from '@prisma/client'
 import { DatePickerWithRange } from '../_common/DatePickerWithRange'
-import { format, subDays, startOfDay, endOfDay } from 'date-fns'
-import { useState } from 'react'
+import {
+    format,
+    subDays,
+    startOfDay,
+    endOfDay,
+    formatDuration,
+    formatDistanceStrict,
+    formatDistance,
+} from 'date-fns'
+import { useEffect, useState } from 'react'
 import { DateRange } from 'react-day-picker'
-import { time } from 'console'
+import {
+    formatDurationInSeconds,
+    durationInSeconds,
+} from '../../lib/timeEntries/utils'
+import { set } from 'cypress/types/lodash'
 
 interface ComponentProps {
     timeEntries: TimeEntry[]
     projects: Project[]
+}
+
+interface SummaryData {
+    timeEntryCount: number
+    uniqueProjectIds: number[]
+    totalSeconds: number
 }
 
 export default function SummaryTimeEntries({
@@ -19,12 +37,40 @@ export default function SummaryTimeEntries({
         to: endOfDay(new Date()),
     })
 
+    useEffect(() => {
+        let filteredTimeEntries = filterTimeEntries()
+
+        let filteredSummaryData = {
+            timeEntryCount: 0,
+            uniqueProjectIds: [],
+            totalSeconds: 0,
+        } as SummaryData
+
+        for (let timeEntry of filteredTimeEntries) {
+            filteredSummaryData.timeEntryCount++
+            filteredSummaryData.totalSeconds += durationInSeconds(timeEntry)
+            if (
+                timeEntry.projectId &&
+                !filteredSummaryData.uniqueProjectIds.includes(
+                    timeEntry.projectId
+                )
+            ) {
+                filteredSummaryData.uniqueProjectIds.push(timeEntry.projectId)
+            }
+        }
+
+        setSummaryDate(filteredSummaryData)
+    }, [date])
+
+    const [summaryData, setSummaryDate] = useState<SummaryData | undefined>()
+
     function filterTimeEntries() {
         if (date == null || date.from == null || date.to == null) {
             return timeEntries
         }
 
         let filteredTimeEntries = []
+
         for (let timeEntry of timeEntries) {
             console.log(
                 'comparing timeEntry [timeEntry.start, date.from, date.to]',
@@ -54,6 +100,23 @@ export default function SummaryTimeEntries({
                 </div>
             ) : (
                 <div>Select a date range</div>
+            )}
+
+            {summaryData && (
+                <div>
+                    <h3 className='font-bold'>Summary Data</h3>
+                    <ul>
+                        <li>Time Entry Count: {summaryData.timeEntryCount}</li>
+                        <li>
+                            Unique Project Count:{' '}
+                            {summaryData.uniqueProjectIds.length}
+                        </li>
+                        <li>
+                            Total Time Tracked:{' '}
+                            {formatDurationInSeconds(summaryData.totalSeconds)}
+                        </li>
+                    </ul>
+                </div>
             )}
 
             {timeEntries.length &&
@@ -86,6 +149,17 @@ export default function SummaryTimeEntries({
                                     {format(
                                         new Date(timeEntry.end),
                                         'LLL dd, y'
+                                    )}
+                                </span>
+                            ) : (
+                                <span>not completed</span>
+                            )}
+                        </div>
+                        <div>
+                            {timeEntry.end != null ? (
+                                <span>
+                                    {formatDurationInSeconds(
+                                        durationInSeconds(timeEntry)
                                     )}
                                 </span>
                             ) : (

@@ -4,8 +4,11 @@ import { routes } from '@/lib/axios/routes'
 import { Button } from '@/components/ui/button'
 import { Project, TimeEntry } from '@prisma/client'
 import { useState } from 'react'
-import { intervalToDuration } from 'date-fns'
 import { useEffect } from 'react'
+import {
+    durationActiveTimerInSeconds,
+    formatDurationInSeconds,
+} from '@/lib/timeEntries/utils'
 
 const deleteTimerEntryViaAPI = async ({ timeEntryId }) => {
     const { data } = await axiosInstance.post(
@@ -33,9 +36,6 @@ interface ComponentProps {
 }
 
 interface Counter {
-    days: number
-    hours: number
-    minutes: number
     seconds: number
 }
 
@@ -52,26 +52,10 @@ export default function MyTimeEntries({
             if (timeEntry.end != null) comparisonDate = new Date(timeEntry.end)
 
             let counter: Counter = {
-                days:
-                    intervalToDuration({
-                        start: timeEntry.start,
-                        end: comparisonDate,
-                    }).days || 0,
-                hours:
-                    intervalToDuration({
-                        start: timeEntry.start,
-                        end: comparisonDate,
-                    }).hours || 0,
-                minutes:
-                    intervalToDuration({
-                        start: timeEntry.start,
-                        end: comparisonDate,
-                    }).minutes || 0,
-                seconds:
-                    intervalToDuration({
-                        start: timeEntry.start,
-                        end: comparisonDate,
-                    }).seconds || 0,
+                seconds: durationActiveTimerInSeconds(
+                    timeEntry,
+                    comparisonDate
+                ),
             }
 
             newCounters.push(counter)
@@ -109,10 +93,9 @@ export default function MyTimeEntries({
                             )}
                         </div>
                         <div>
-                            {timeCounters[index].days}d{' '}
-                            {timeCounters[index].hours}h{' '}
-                            {timeCounters[index].minutes}m{' '}
-                            {timeCounters[index].seconds}s{' '}
+                            {formatDurationInSeconds(
+                                timeCounters[index].seconds
+                            )}
                         </div>
                         {timeEntry.end == null ? (
                             <Button
