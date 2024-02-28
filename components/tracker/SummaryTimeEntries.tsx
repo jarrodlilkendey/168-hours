@@ -62,101 +62,13 @@ export default function SummaryTimeEntries({
             } as SummaryData
 
             let days = generateDailyPoints(date.from, date.to)
-            let data = []
+            let data: StackedBarChartDataPoint[] = []
             for (let day of days) {
                 data.push({
                     name: day.label,
-                    values: [1000, 2000, 3000],
+                    values: [],
                 })
             }
-
-            // const data = [
-            //     {
-            //         name: 'Page A',
-            //         uv: 4000,
-            //         pv: 2400,
-            //         amt: 2400,
-            //         vars: [1000, 2000, 3000],
-            //     },
-            //     {
-            //         name: 'Page B',
-            //         uv: 3000,
-            //         pv: 1398,
-            //         amt: 2210,
-            //         vars: [1000, 2000, 3000],
-            //     },
-            //     {
-            //         name: 'Page C',
-            //         uv: 2000,
-            //         pv: 9800,
-            //         amt: 2290,
-            //         vars: [1000, 2000, 3000],
-            //     },
-            //     {
-            //         name: 'Page D',
-            //         uv: 2780,
-            //         pv: 3908,
-            //         amt: 2000,
-            //         vars: [1000, 2000, 3000],
-            //     },
-            //     {
-            //         name: 'Page E',
-            //         uv: 1890,
-            //         pv: 4800,
-            //         amt: 2181,
-            //         vars: [1000, 2000, 3000],
-            //     },
-            //     {
-            //         name: 'Page F',
-            //         uv: 2390,
-            //         pv: 3800,
-            //         amt: 2500,
-            //         vars: [1000, 2000, 3000],
-            //     },
-            //     {
-            //         name: 'Page G',
-            //         uv: 3490,
-            //         pv: 4300,
-            //         amt: 2100,
-            //         vars: [1000, 2400, 3000, 0, 1000],
-            //     },
-            // ]
-
-            const segments = [
-                {
-                    dataKey: 'values[0]',
-                    stackId: 'a',
-                    color: '#8884d8',
-                    name: 'Project 1',
-                },
-                {
-                    dataKey: 'values[1]',
-                    stackId: 'a',
-                    color: '#82ca9d',
-                    name: 'Project 2',
-                },
-                {
-                    dataKey: 'values[2]',
-                    stackId: 'a',
-                    color: '#6ff',
-                    name: 'Project 3',
-                },
-                {
-                    dataKey: 'values[3]',
-                    stackId: 'a',
-                    color: '#eff',
-                    name: 'Project 4',
-                },
-                {
-                    dataKey: 'values[4]',
-                    stackId: 'a',
-                    color: '#e3f',
-                    name: 'Project 5',
-                },
-            ]
-
-            filteredSummaryData.dailyTimeByProjectData = data
-            filteredSummaryData.dailyTimeByProjectSegments = segments
 
             for (let timeEntry of filteredTimeEntries) {
                 filteredSummaryData.timeEntryCount++
@@ -167,6 +79,7 @@ export default function SummaryTimeEntries({
                         (p) => p.id == timeEntry.projectId
                     )
                 ) {
+                    // project is not in the list
                     filteredSummaryData.uniqueProjects.push({
                         id: timeEntry.projectId,
                         name: projects.find((p) => p.id == timeEntry.projectId)!
@@ -174,6 +87,55 @@ export default function SummaryTimeEntries({
                     })
                 }
             }
+
+            let projectsList = ['no project']
+            for (let project of filteredSummaryData.uniqueProjects) {
+                projectsList.push(project.name)
+            }
+
+            // for each day
+            for (let dayIndex = 0; dayIndex < days.length; dayIndex++) {
+                let day = days[dayIndex]
+
+                // get the time entries for that day
+                let dayTimeEntries = filteredTimeEntries.filter(
+                    (timeEntry) =>
+                        new Date(timeEntry.start).toLocaleDateString('en-GB') ==
+                        day.label
+                )
+
+                // tally up the duration for each project on that day
+                for (let project of [
+                    { id: null },
+                    ...filteredSummaryData.uniqueProjects,
+                ]) {
+                    let projectTimeEntries = dayTimeEntries.filter(
+                        (timeEntry) => timeEntry.projectId == project.id
+                    )
+                    let duration = 0
+                    for (let timeEntry of projectTimeEntries) {
+                        duration += durationInSeconds(timeEntry)
+                    }
+                    data[dayIndex].values.push(duration)
+                }
+            }
+
+            let colors = ['#8884d8', '#82ca9d', '#6ff', '#eff', '#e3f']
+            let segments: StackedBarChartSegment[] = []
+            for (let project of [
+                { id: null, name: 'no project' },
+                ...filteredSummaryData.uniqueProjects,
+            ]) {
+                segments.push({
+                    dataKey: `values[${projectsList.indexOf(project.name)}]`,
+                    stackId: 'a',
+                    color: colors[projectsList.indexOf(project.name)],
+                    name: project.name,
+                })
+            }
+
+            filteredSummaryData.dailyTimeByProjectData = data
+            filteredSummaryData.dailyTimeByProjectSegments = segments
 
             setSummaryDate(filteredSummaryData)
         }
@@ -189,12 +151,6 @@ export default function SummaryTimeEntries({
         let filteredTimeEntries = []
 
         for (let timeEntry of timeEntries) {
-            console.log(
-                'comparing timeEntry [timeEntry.start, date.from, date.to]',
-                timeEntry.start,
-                date.from,
-                date.to
-            )
             if (
                 new Date(timeEntry.start) >= date.from &&
                 new Date(timeEntry.start) <= date.to
@@ -286,17 +242,34 @@ export default function SummaryTimeEntries({
                     </div>
                 ))}
 
-            <div>TODO: daily bar chart color coded by different projects</div>
             {summaryData && (
-                <div className='h-[400px]'>
-                    <StackedBarChart
-                        data={summaryData.dailyTimeByProjectData}
-                        segments={summaryData.dailyTimeByProjectSegments}
-                    />
+                <div className='columns-1'>
+                    <div>
+                        <h3 className='font-bold'>
+                            Daily Time Spent By Project
+                        </h3>
+                        <div className='h-[400px]'>
+                            <StackedBarChart
+                                data={summaryData.dailyTimeByProjectData}
+                                segments={
+                                    summaryData.dailyTimeByProjectSegments
+                                }
+                            />
+                        </div>
+                    </div>
+                    <div>
+                        <h3 className='font-bold'>Time By Project</h3>
+                        <div className='h-[400px]'>
+                            <StackedBarChart
+                                data={summaryData.dailyTimeByProjectData}
+                                segments={
+                                    summaryData.dailyTimeByProjectSegments
+                                }
+                            />
+                        </div>
+                    </div>
                 </div>
             )}
-            <div>TODO: pie chart color coded by different projects</div>
-            {/* https://www.youtube.com/watch?v=eIRqGui1vQc */}
         </div>
     )
 }
