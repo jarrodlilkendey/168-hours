@@ -27,7 +27,7 @@ interface StackedBarChartProps {
     segments: StackedBarChartSegment[]
 }
 
-export default function StackedBarChart({
+export default function RechartsStackedBarChart({
     data,
     segments,
 }: StackedBarChartProps) {
@@ -60,9 +60,6 @@ export default function StackedBarChart({
                         />
                     )
                 })}
-                {/* <Bar dataKey='pv' stackId='a' fill='#8884d8' />
-                <Bar dataKey='uv' stackId='a' fill='#82ca9d' />
-                <Bar dataKey='amt' stackId='a' fill='#6ff' /> */}
             </BarChart>
         </ResponsiveContainer>
     )
