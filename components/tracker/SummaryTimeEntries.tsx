@@ -1,6 +1,12 @@
 import { Project, TimeEntry } from '@prisma/client'
 import { DatePickerWithRange } from '../_common/DatePickerWithRange'
-import { format, subDays, startOfDay, endOfDay } from 'date-fns'
+import {
+    format,
+    subDays,
+    startOfDay,
+    endOfDay,
+    differenceInCalendarDays,
+} from 'date-fns'
 import { useEffect, useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import {
@@ -126,18 +132,24 @@ export default function SummaryTimeEntries({
         <div className='w-full'>
             <h2 className='text-xl font-bold'>Summary</h2>
             <DatePickerWithRange date={date} setDate={setDate} />
-            {date && date.from && date.to ? (
-                <div>
-                    {format(date.from, 'LLL dd, y')} -{' '}
-                    {format(date.to, 'LLL dd, y')}
-                </div>
-            ) : (
-                <div>Select a date range</div>
-            )}
 
             {summaryData && (
                 <div>
                     <h3 className='font-bold'>Summary Data</h3>
+                    <div>
+                        {date && date.from && date.to ? (
+                            <div>
+                                Data is filtered by{' '}
+                                {format(date.from, 'LLL dd, y')} -{' '}
+                                {format(date.to, 'LLL dd, y')} (
+                                {differenceInCalendarDays(date.to, date.from) +
+                                    1}{' '}
+                                days)
+                            </div>
+                        ) : (
+                            <div>Select a date range</div>
+                        )}
+                    </div>
                     <ul>
                         <li>
                             Time Entry Count:{' '}
