@@ -239,20 +239,39 @@ export default function SummaryTimeEntries({
                         </div>
                     </div>
                     <div>
-                        <h3 className='font-bold'>Time By Project</h3>
+                        <h3 className='font-bold'>Time By Project Chart</h3>
                         <div className='h-[400px]'>
                             <RechartsPieChart
                                 data={summaryData.projectTimeBreakdown}
-                                // data={
-                                //     summaryData.dailyTimeByProjectChartBreakdown
-                                //         .data
-                                // }
-                                // segments={
-                                //     summaryData.dailyTimeByProjectChartBreakdown
-                                //         .segments
-                                // }
                             />
                         </div>
+                    </div>
+                    <div>
+                        <h3 className='font-bold'>Time By Project Table</h3>
+                        <table className='table-auto w-full border'>
+                            <thead>
+                                <tr>
+                                    <th className='border'>Project</th>
+                                    <th className='border'>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {summaryData.projectTimeBreakdown.map(
+                                    (project, index) => (
+                                        <tr key={index} className='text-center'>
+                                            <td className='border'>
+                                                {project.name}
+                                            </td>
+                                            <td className='border'>
+                                                {formatDurationInSeconds(
+                                                    project.value
+                                                )}
+                                            </td>
+                                        </tr>
+                                    )
+                                )}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             )}
