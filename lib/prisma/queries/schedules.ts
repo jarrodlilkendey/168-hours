@@ -17,8 +17,6 @@ export const getMySchedules = async () => {
         where: { userId: user.id },
     })
 
-    console.log('schedules', schedules)
-
     return schedules
 }
 
@@ -26,8 +24,6 @@ export const getScheduleById = (id: number) =>
     prisma.schedule.findUniqueOrThrow({ where: { id } })
 
 export const createSchedule = async (schedule: SchedulePutData) => {
-    // console.log('createSchedule', schedule)
     const newSchedule = await prisma.schedule.create({ data: schedule })
-    // console.log('createSchedule', newSchedule)
     return prisma.schedule.findUnique({ where: { id: newSchedule.id } })
 }

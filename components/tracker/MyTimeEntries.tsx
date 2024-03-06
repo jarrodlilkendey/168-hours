@@ -10,7 +10,11 @@ import {
     formatDurationInSeconds,
 } from '@/lib/timeEntries/utils'
 
-const deleteTimerEntryViaAPI = async ({ timeEntryId }) => {
+const deleteTimerEntryViaAPI = async ({
+    timeEntryId,
+}: {
+    timeEntryId: number
+}) => {
     const { data } = await axiosInstance.post(
         `/api/${routes.track}/${timeEntryId}`,
         {
@@ -20,7 +24,11 @@ const deleteTimerEntryViaAPI = async ({ timeEntryId }) => {
     return data
 }
 
-const stopTimerEntryViaAPI = async ({ timeEntryId }) => {
+const stopTimerEntryViaAPI = async ({
+    timeEntryId,
+}: {
+    timeEntryId: number
+}) => {
     const { data } = await axiosInstance.post(
         `/api/${routes.track}/${timeEntryId}`,
         {

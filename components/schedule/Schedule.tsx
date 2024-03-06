@@ -1,7 +1,7 @@
-import type { Schedule } from '@/lib/schedules/types'
 import useSWR from 'swr'
 import { axiosInstance } from '@/lib/axios/axiosInstance'
 import { routes } from '@/lib/axios/routes'
+import { Schedule } from '@prisma/client'
 
 const FIFTEEN_SECONDS = 15 * 1000
 

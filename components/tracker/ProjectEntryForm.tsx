@@ -1,14 +1,12 @@
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
 import { axiosInstance } from '@/lib/axios/axiosInstance'
 import { routes } from '@/lib/axios/routes'
 
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -16,11 +14,9 @@ import {
 } from '@/components/ui/form'
 import { Button } from '@/components/ui/button'
 
-import { Project } from '@prisma/client'
-
 interface ComponentProps {}
 
-const createProjectViaAPI = async ({ name }) => {
+const createProjectViaAPI = async ({ name }: { name: string }) => {
     const { data } = await axiosInstance.post(`/api/${routes.projects}`, {
         name,
         userId: 1,

@@ -22,7 +22,13 @@ interface ComponentProps {
     projects: Project[]
 }
 
-const createEntryViaAPI = async ({ label, projectId }) => {
+const createEntryViaAPI = async ({
+    label,
+    projectId,
+}: {
+    label: string
+    projectId: string
+}) => {
     let projectIdNumber = null
     if (projectId != '') {
         projectIdNumber = parseInt(projectId)

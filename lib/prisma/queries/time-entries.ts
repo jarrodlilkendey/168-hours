@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { TimeEntryPutData, TimeEntryPatchData } from '@/lib/schedules/types'
+import { TimeEntryPutData, TimeEntryPatchData } from '@/lib/timeEntries/types'
 
 import prisma from '@/lib/prisma'
 import { TimeEntry } from '@prisma/client'
