@@ -1,6 +1,6 @@
 services:
     nextjsdocker:
-        image: nextjs-docker
+        image: 168-hours-nextjs-docker
         build: .
         ports:
             - '3000:3000'
