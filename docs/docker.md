@@ -11,5 +11,18 @@
 
 ### Docker Implementation
 
--   I can't figure out how to load the env variables (related thread - https://forums.docker.com/t/docker-compose-env-file-behavior-is-confusing/113526/6)
--   https://docs.docker.com/compose/environment-variables/set-environment-variables/
+### Environment variables
+
+-   Setting environment variables can be tricky (code snippet below from the docker-compose.yaml file)
+-   Check env vars of a container - docker exec <container-id> env
+
+```
+services:
+  nodeapp4:
+    image: jarrodlilkendey/168-hours-nextjs-docker:latest
+    networks:
+      - mynetwork
+    env_file:
+      - path: ./168hours/.env.production.local
+        required: true
+```
