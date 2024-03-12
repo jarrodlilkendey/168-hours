@@ -50,12 +50,11 @@ jobs:
                   TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
                   #       npm run cypress:run
     docker:
-        name: Docker build and publish
+        name: Docker Build, Tag and Push
         runs-on: ubuntu-latest
+        needs: test
         steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
-            - name: create .env
+            - name: create production .env
               run: |
                   touch .env.production.local
                   echo CYPRESS_baseUrl=${{ secrets.PROD_NEXTAUTH_URL }} >> .env.production.local
@@ -69,6 +68,6 @@ jobs:
                   username: ${{ secrets.DOCKERHUB_USERNAME }}
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
             - name: Docker Build
-              run: docker compose up --build --force-recreate
+              run: docker compose build #docker compose up --build --force-recreate
             - name: Docker Push to Docker Hub
               run: docker push jarrodlilkendey/168-hours-nextjs-docker:latest
