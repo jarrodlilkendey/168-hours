@@ -35,8 +35,6 @@ jobs:
                   echo NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} >> .env.test.local
                   echo TEST_USER_EMAIL=${{ secrets.TEST_USER_EMAIL }} >> .env.test.local
                   echo TEST_USER_PASSWORD=${{ secrets.TEST_USER_PASSWORD }} >> .env.test.local
-            - name: cat .env
-              run: cat .env.test.local
             - name: Cypress run
               uses: cypress-io/github-action@v6
               with:
@@ -51,3 +49,26 @@ jobs:
                   TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
                   TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
                   #       npm run cypress:run
+    docker:
+        name: Docker build and publish
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+            - name: create .env
+              run: |
+                  touch .env.production.local
+                  echo CYPRESS_baseUrl=${{ secrets.PROD_NEXTAUTH_URL }} >> .env.production.local
+                  echo DATABASE_URL=${{ secrets.PROD_DATABASE_URL }} >> .env.production.local
+                  echo NEXTAUTH_SECRET=${{ secrets.PROD_NEXTAUTH_SECRET }} >> .env.production.local
+                  echo NEXTAUTH_URL=${{ secrets.PROD_NEXTAUTH_URL }} >> .env.production.local
+                  echo NEXT_PUBLIC_BASE_URL=${{ secrets.PROD_NEXT_PUBLIC_BASE_URL }} >> .env.production.local
+            - name: Login to Docker Hub
+              uses: docker/login-action@v3
+              with:
+                  username: ${{ secrets.DOCKERHUB_USERNAME }}
+                  password: ${{ secrets.DOCKERHUB_TOKEN }}
+            - name: Docker Build
+              run: docker compose up --build --force-recreate
+            - name: Docker Push to Docker Hub
+              run: docker push jarrodlilkendey/168-hours-nextjs-docker:latest
