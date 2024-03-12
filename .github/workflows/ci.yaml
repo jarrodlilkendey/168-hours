@@ -57,7 +57,6 @@ jobs:
             - name: create production .env
               run: |
                   touch .env.production.local
-                  echo CYPRESS_baseUrl=${{ secrets.PROD_NEXTAUTH_URL }} >> .env.production.local
                   echo DATABASE_URL=${{ secrets.PROD_DATABASE_URL }} >> .env.production.local
                   echo NEXTAUTH_SECRET=${{ secrets.PROD_NEXTAUTH_SECRET }} >> .env.production.local
                   echo NEXTAUTH_URL=${{ secrets.PROD_NEXTAUTH_URL }} >> .env.production.local
@@ -69,5 +68,10 @@ jobs:
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
             - name: Docker Build
               run: docker compose build #docker compose up --build --force-recreate
+              env:
+                  DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
+                  NEXTAUTH_SECRET: ${{ secrets.PROD_NEXTAUTH_SECRET }}
+                  NEXTAUTH_URL: ${{ secrets.PROD_NEXTAUTH_URL }}
+                  NEXT_PUBLIC_BASE_URL: ${{ secrets.PROD_NEXT_PUBLIC_BASE_URL }}
             - name: Docker Push to Docker Hub
               run: docker push jarrodlilkendey/168-hours-nextjs-docker:latest
