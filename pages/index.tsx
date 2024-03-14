@@ -8,6 +8,7 @@ export default function Home() {
                 Time is your most valuable asset
             </h2>
             <ul>
+                <li>Simple website change</li>
                 <li>Time is finite</li>
                 <li>There are no mulligans</li>
                 <li>Money cannot buyback time</li>
