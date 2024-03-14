@@ -67,7 +67,7 @@ jobs:
                   username: ${{ secrets.DOCKERHUB_USERNAME }}
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
             - name: Docker Build
-              run: docker compose build #docker compose up --build --force-recreate
+              run: docker compose build --no-cache #docker compose up --build --force-recreate
               env:
                   DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
                   NEXTAUTH_SECRET: ${{ secrets.PROD_NEXTAUTH_SECRET }}
