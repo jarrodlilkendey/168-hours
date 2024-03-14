@@ -70,6 +70,8 @@ jobs:
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
             - name: Docker Build
               run: docker-compose build # --no-cache #docker compose up --build --force-recreate
+            - name: Docker Tag
+              run: docker tag 168-hours-nextjs-docker:latest jarrodlilkendey/168-hours-nextjs-docker:latest
               # env:
               #     DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
               #     NEXTAUTH_SECRET: ${{ secrets.PROD_NEXTAUTH_SECRET }}
