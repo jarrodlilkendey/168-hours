@@ -79,3 +79,16 @@ jobs:
               #     NEXT_PUBLIC_BASE_URL: ${{ secrets.PROD_NEXT_PUBLIC_BASE_URL }}
             - name: Docker Push to Docker Hub
               run: docker push jarrodlilkendey/168-hours-nextjs-docker:latest
+    deploy:
+        name: Deploy to Digital Ocean over SSH
+        needs: docker
+        runs-on: ubuntu-latest
+        steps:
+            - name: SSH
+              uses: appleboy/ssh-action@v1.0.3
+              with:
+                  host: ${{ secrets.DIGITALOCEAN_IP }}
+                  username: ${{ secrets.DIGITALOCEAN_SSH_USERNAME }}
+                  key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
+                  port: ${{ secrets.SSH_PORT }}
+                  script: whoami
