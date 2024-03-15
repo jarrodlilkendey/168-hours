@@ -31,7 +31,7 @@ export default function Home() {
             <h2 className='text-lg font-bold'>
                 Time is your most valuable asset
             </h2>
-            <ul>
+            <ul className='list-disc list-inside'>
                 <li>Time is finite</li>
                 <li>There are no mulligans</li>
                 <li>Money cannot buyback time</li>
