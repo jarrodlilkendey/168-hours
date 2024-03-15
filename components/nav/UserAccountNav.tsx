@@ -11,6 +11,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
+import { ModeToggle } from '../_common/ModeToggle'
 
 interface UserAccountNavProps {
     email: string
@@ -54,6 +55,8 @@ const UserAccountNav = ({ email, imageUrl, name }: UserAccountNavProps) => {
                             </p>
                         )}
                     </div>
+
+                    <ModeToggle />
                 </div>
 
                 <DropdownMenuSeparator />
