@@ -92,6 +92,7 @@ jobs:
                   key: ${{ secrets.DIGITALOCEAN_SSH_KEY }}
                   port: ${{ secrets.SSH_PORT }}
                   script_stop: true
+                  debug: true
                   script: |
                       docker compose down
                       docker pull jarrodlilkendey/168-hours-nextjs-docker:latest
