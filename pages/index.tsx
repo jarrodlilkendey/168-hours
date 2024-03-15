@@ -1,4 +1,28 @@
 import Link from 'next/link'
+import ToolWithLink from '@/components/_common/ToolWithLink'
+
+const tools = [
+    {
+        name: 'Free Time Calculator',
+        link: '/freetime',
+        description: 'Calculate how much free time you have in a week',
+    },
+    {
+        name: 'Time Tracker',
+        link: '/track',
+        description: 'Track how you actually spend your time',
+    },
+    {
+        name: 'Schedule Maker',
+        link: '/schedules',
+        description: 'Create a weekly schedule',
+    },
+    {
+        name: 'Habit Tracker',
+        link: '/habits',
+        description: 'Track your habits over a month',
+    },
+]
 
 export default function Home() {
     return (
@@ -15,69 +39,15 @@ export default function Home() {
                 <li>Time cannot be inflated away or debased</li>
             </ul>
             <h2 className='text-lg font-bold'>Tools to savour your time</h2>
-            <div className='grid grid-cols-3'>
-                <div>
-                    <div>
-                        <h3 className='text-base font-bold'>
-                            Free Time Calculator
-                        </h3>
-                    </div>
-                    <div className='mb-4'>
-                        Calculate how much free time you have in a week
-                    </div>
-                    <div>
-                        <Link
-                            href='/freetime'
-                            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-                        >
-                            Try It
-                        </Link>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <h3 className='text-base font-bold'>Time Tracker</h3>
-                    </div>
-                    <div className='mb-4'>
-                        Track how you actually spend your time
-                    </div>
-                    <div>
-                        <Link
-                            href='/track'
-                            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-                        >
-                            Try It
-                        </Link>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <h3 className='text-base font-bold'>Schedule Maker</h3>
-                    </div>
-                    <div className='mb-4'>Create a weekly schedule</div>
-                    <div>
-                        <Link
-                            href='/schedules'
-                            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-                        >
-                            Try It
-                        </Link>
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <h3 className='text-base font-bold'>Habit Tracker</h3>
-                    </div>
-                    <div className='mb-4'>Track your habits over a month</div>
-                    <div>
-                        <Link
-                            href='/habits'
-                            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-                        >
-                            Try It
-                        </Link>
-                    </div>
-                </div>
+            <div className='grid grid-cols-2'>
+                {tools.map((tool) => (
+                    <ToolWithLink
+                        key={`${tool.name}-${tool.link}`}
+                        title={tool.name}
+                        description={tool.description}
+                        link={tool.link}
+                    />
+                ))}
             </div>
         </div>
     )
