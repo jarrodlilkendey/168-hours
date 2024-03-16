@@ -96,6 +96,10 @@ jobs:
                   script: |
                       pwd    
                       ls -l
+                      docker ps -a
                       docker compose down
                       docker pull jarrodlilkendey/168-hours-nextjs-docker:latest
+                      docker ps -a
+                      docker compose up --build -d #
+                      docker ps -a
                   # docker compose up --build --force-recreate -d
