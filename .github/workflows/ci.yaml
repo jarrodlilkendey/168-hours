@@ -98,4 +98,4 @@ jobs:
                       ls -l
                       docker compose down
                       docker pull jarrodlilkendey/168-hours-nextjs-docker:latest
-                      docker compose up --build --force-recreate -d
+                  # docker compose up --build --force-recreate -d
