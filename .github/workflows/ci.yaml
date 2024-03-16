@@ -100,6 +100,7 @@ jobs:
                       docker compose down
                       docker pull jarrodlilkendey/168-hours-nextjs-docker:latest
                       docker ps -a
-                      docker compose up --build -d #
+                      docker compose up --detach --wait
                       docker ps -a
                   # docker compose up --build --force-recreate -d
+                  # docker compose up --build -d
