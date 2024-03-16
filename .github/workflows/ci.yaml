@@ -94,13 +94,8 @@ jobs:
                   script_stop: true
                   debug: true
                   script: |
-                      pwd    
-                      ls -l
                       docker ps -a
                       docker compose down
                       docker pull jarrodlilkendey/168-hours-nextjs-docker:latest
-                      docker ps -a
                       docker compose up --build --force-recreate --detach --wait
                       docker ps -a
-                  # docker compose up --build --force-recreate -d
-                  # docker compose up --build -d
