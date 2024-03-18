@@ -4,15 +4,17 @@ interface ToolWithLinkProps {
     title: string
     description: string
     link: string
+    cypressId: string
 }
 
 export default function ToolWithLink({
     title,
     description,
     link,
+    cypressId,
 }: ToolWithLinkProps) {
     return (
-        <div className='mt-2 mb-2 me-4 p-4 border'>
+        <div className='mt-2 mb-2 me-4 p-4 border' data-cy={cypressId}>
             <div>
                 <h3 className='text-base font-bold'>{title}</h3>
             </div>

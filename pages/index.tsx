@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import ToolWithLink from '@/components/_common/ToolWithLink'
 
 const tools = [
@@ -6,21 +5,25 @@ const tools = [
         name: 'Free Time Calculator',
         link: '/freetime',
         description: 'Calculate how much free time you have in a week',
+        cypressId: 'freetime-tool-card',
     },
     {
         name: 'Time Tracker',
         link: '/track',
         description: 'Track how you actually spend your time',
+        cypressId: 'track-tool-card',
     },
     {
         name: 'Schedule Maker',
         link: '/schedules',
         description: 'Create a weekly schedule',
+        cypressId: 'schedules-tool-card',
     },
     {
         name: 'Habit Tracker',
         link: '/habits',
         description: 'Track your habits over a month',
+        cypressId: 'habits-tool-card',
     },
 ]
 
@@ -46,6 +49,7 @@ export default function Home() {
                         title={tool.name}
                         description={tool.description}
                         link={tool.link}
+                        cypressId={tool.cypressId}
                     />
                 ))}
             </div>
