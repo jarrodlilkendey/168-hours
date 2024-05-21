@@ -35,11 +35,10 @@ export default function Home() {
                 Time is your most valuable asset
             </h2>
             <ul className='list-disc list-inside'>
-                <li>Time is finite</li>
-                <li>There are no mulligans</li>
+                <li>Time is a finite resource</li>
                 <li>Money cannot buyback time</li>
                 <li>Time cannot be taxed</li>
-                <li>Time cannot be inflated away or debased</li>
+                <li>Time cannot be inflated away</li>
             </ul>
             <h2 className='text-lg font-bold'>Tools to savour your time</h2>
             <div className='grid grid-cols-2'>
