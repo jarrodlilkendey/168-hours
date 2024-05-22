@@ -5,4 +5,6 @@ export enum routes {
     login = 'login',
     track = 'track',
     projects = 'projects',
+    freetime = 'freetime',
+    habits = 'habits',
 }

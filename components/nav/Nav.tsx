@@ -23,14 +23,13 @@ export function NavBar() {
                     <MobileNav isAuth={session && session.user} />
 
                     <div className='hidden items-center space-x-4 sm:flex'>
-                        <Link href='/blog'>Blog</Link>
                         {!isLoggedIn || !session || !session.user ? (
                             <>
                                 <Link href={routes.login}>Sign in</Link>
                             </>
                         ) : (
                             <>
-                                <Link href='/dashboard'>Dashboard</Link>
+                                <Link href='/'>Dashboard</Link>
 
                                 <UserAccountNav
                                     name='Your Account'

@@ -20,7 +20,6 @@ interface UserAccountNavProps {
 }
 
 const UserAccountNav = ({ email, imageUrl, name }: UserAccountNavProps) => {
-    console.log('UserAccountNav', email, imageUrl, name)
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild className='overflow-visible'>
