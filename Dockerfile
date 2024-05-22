@@ -62,7 +62,6 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --chown=nextjs:nodejs prisma ./prisma/
-COPY --chown=nextjs:nodejs docker-bootstrap-app.sh ./
 
 USER nextjs
 
