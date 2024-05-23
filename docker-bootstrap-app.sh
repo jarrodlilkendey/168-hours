@@ -1,5 +1,5 @@
 #!/bin/sh
-npx prisma migrate deploy
+# npx prisma migrate deploy
 node server.js
 # npx prisma migrate deploy
 # node server.js
