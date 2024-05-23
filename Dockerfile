@@ -11,12 +11,6 @@ COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 COPY prisma ./prisma
 
 RUN npm ci
-# RUN \
-#   if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
-#   elif [ -f package-lock.json ]; then npm ci; \
-#   elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
-#   else echo "Lockfile not found." && exit 1; \
-#   fi
 
 # Rebuild the source code only when needed
 FROM base AS builder
@@ -62,7 +56,7 @@ RUN chown nextjs:nodejs .next
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --chown=nextjs:nodejs prisma ./prisma/
-COPY --chown=nextjs:nodejs docker-bootstrap-app.sh ./
+# COPY --chown=nextjs:nodejs docker-bootstrap-app.sh ./
 
 USER nextjs
 
@@ -74,4 +68,5 @@ ENV HOSTNAME "0.0.0.0"
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD ["./docker-bootstrap-app.sh"]
+# CMD ["./docker-bootstrap-app.sh"]
+CMD ["npm", "start:prod"]
