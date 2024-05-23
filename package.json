@@ -20,7 +20,7 @@
         "cypress:start": "npx browserslist@latest --update-db && start-server-and-test 'npm run start:test' 3000 'npm run cypress:open'",
         "cypress:run": "npm run build:test && start-server-and-test 'npm run start:test' 3000 'env-cmd -f .env.test.local cypress run'",
         "postinstall": "prisma generate",
-        "cmd:start:prod": "npm run prisma:migrate:deploy && npm run start"
+        "start:prod": "npm run prisma:migrate:deploy && node server.js"
     },
     "dependencies": {
         "@hookform/resolvers": "^3.3.4",
