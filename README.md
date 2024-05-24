@@ -20,6 +20,10 @@ Adding state management with redux. Including testing.
 
 Use infra as code with DigitalOcean. Use docker containers to spin up database. Don't use Supabase or AWS managed databases.
 
+## Todo
+
+-   [ ]
+
 ## UX
 
 1. Sign-in / register flow
@@ -39,8 +43,8 @@ Use infra as code with DigitalOcean. Use docker containers to spin up database. 
 2. NextAuth for authentication (using email provider as this will not be a commercial project)
 3. Prisma for an ORM on top of a Postgres DB
 4. Typescript
-5. Vercel will be used for hosting
-6. PostgresDB hosted on Supabase
+5. The application will be Dockerized and hosted using Docker Compose on a Digital Ocean VPS
+6. PostgresDB self hosted on a Digital Ocean VPS
 
 ## Usage
 
