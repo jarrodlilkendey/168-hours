@@ -41,6 +41,7 @@ test.each(testData)(
             handler,
             test: async ({ fetch }) => {
                 const res = await fetch({ method: 'GET' })
+                console.log('res', res)
                 const json = await res.json()
                 expect(json).toEqual(generateExpectedData(json))
             },
