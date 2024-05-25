@@ -1,16 +1,14 @@
-import { Mobster } from '@/lib/mobsters/types'
+import { Schedule } from '@prisma/client'
 
-export const mockMobsters: Array<Mobster> = [
+export const mockSchedules: Array<Schedule> = [
     {
         id: 1,
-        name: 'tony soprano',
+        name: 'Schedule 1',
+        userId: 1,
     },
     {
         id: 2,
-        name: 'paulie walnuts',
-    },
-    {
-        id: 3,
-        name: 'christopher moltisanti',
+        name: 'Schedule 2',
+        userId: 1,
     },
 ]

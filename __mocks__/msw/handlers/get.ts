@@ -1,9 +1,13 @@
-import { rest } from 'msw'
+import { http } from 'msw'
 
-import { mockMobsters } from '@/__mocks__/mockData'
+import { mockSchedules } from '@/__mocks__/mockData'
 
 export const getHandlers = [
-    rest.get('http://localhost:3000/api/mobsters', (req, res, ctx) =>
-        res(ctx.json(mockMobsters))
-    ),
+    http.get('/http://localhost:3000/api/schedules', () => {
+        return new Response(JSON.stringify(mockSchedules), {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+    }),
 ]
