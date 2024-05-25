@@ -10,32 +10,23 @@ Practice writing unit, integration and end to end tests using the following tech
 4. next-test-api-route-handler
 5. Jest
 
-Put all tests in a continuous integration pipeline using GitHub Actions.
+Put all tests in a continuous integration continous deployment pipeline using GitHub Actions.
 
-Add monitoring and alerting capabilities to maintain quality of your application in production.
+Self host the web application and database using infrastructure as code with Digital Ocean, to gain further experience managing these components in production without relying on managed providers such as Vercel, Supabase or AWS managed databases.
 
-Stretch goal: look at other software quality checks I can add to the CI pipeline and learn e.g. static code analysis, Static application security testing (SAST), and dynamic application security testing (DAST).
+## Usage
 
-Adding state management with redux. Including testing.
-
-Use infra as code with DigitalOcean. Use docker containers to spin up database. Don't use Supabase or AWS managed databases.
-
-## Todo
-
--   [ ]
-
-## UX
-
-1. Sign-in / register flow
-2. My Schedules - /schedules - displays a list of schedules you own, with a button to create a new schedule
-3. Schedule details - /schedules/<scheduleId> - displays the individual schedule with can be editted
+1. Follow the .env file templates to complete `.env`, `env.local`, `env.test.local`
+2. Run with locally `npm run dev`
+3. Run unit tests with React Test Library and Mock Service Worker via Jest using `npm run test:ui`
+4. Run API integration tests with next-test-api-route-handler with Jest using `npm run test:api`
+5. Run Cypress integration and E2E tests with `npm run build:test` then `npm run cypress:start`
 
 ## Features
 
-1. Create a schedule for a walk by drag and dropping events
-2. Tool displays the free time you have remaining
-3. Capture a list of goals from prepopulated drop down lists
-4. Schedule will be created for you showing when you can work on your goals outside of your existing commitments
+1. Free Time Calculator: Calculate how much free time you have in a week
+2. Time Tracker: Track how you actually spend your time
+3. Schedule Maker: Create a weekly schedule
 
 ## Technical Design
 
@@ -45,11 +36,13 @@ Use infra as code with DigitalOcean. Use docker containers to spin up database. 
 4. Typescript
 5. The application will be Dockerized and hosted using Docker Compose on a Digital Ocean VPS
 6. PostgresDB self hosted on a Digital Ocean VPS
+7. Terraform and Ansible for infrastructure as code and configuration management
 
-## Usage
+## Todo
 
-1. Follow the .env file templates to complete `.env`, `env.local`, `env.test.local`
-2. Run with locally `npm run dev`
-3. Run unit tests with React Test Library and Mock Service Worker via Jest using `npm run test:ui`
-4. Run API integration tests with next-test-api-route-handler with Jest using `npm run test:api`
-5. Run Cypress integration and E2E tests with `npm run build:test` then `npm run cypress:start`
+-   [ ] Implement some tests with mock service worker
+-   [ ] Implement observability
+-   [ ] Implement security scans including static code analysis, static application security testing (SAST), and dynamic application security testing (DAST)
+-   [ ] Implement infra as code for a dev and prod environment for both the application server and the database server
+-   [ ] Migrate from docker compose into kubernetes for hosting the applucation
+-   [ ] Improve application look in feel
