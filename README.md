@@ -40,6 +40,7 @@ Self host the web application and database using infrastructure as code with Dig
 
 ## Todo
 
+-   [ ] Fix broken API route tests returning 405s
 -   [ ] Implement some tests with mock service worker
 -   [ ] Implement observability
 -   [ ] Implement security scans including static code analysis, static application security testing (SAST), and dynamic application security testing (DAST)

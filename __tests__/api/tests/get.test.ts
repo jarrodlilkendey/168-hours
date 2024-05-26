@@ -27,6 +27,8 @@ const generateExpectedSchedules = (json: Array<Schedule>) => [
 ]
 
 it('[api-test-disabled] schedulesHandler api route working correctly', async () => {
+    // todo: reenable once fixed
+    // review course content on API testing https://www.udemy.com/course/nextjs-testing/learn/lecture/32252382#questions/19114038
     expect(true).toBe(true)
     // await testApiHandler({
     //     pagesHandler: schedulesHandler,
