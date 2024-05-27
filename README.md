@@ -48,4 +48,4 @@ Self host the web application and database using infrastructure as code with Dig
 -   [ ] Migrate from docker compose into kubernetes for hosting the applucation
 -   [ ] Improve application look in feel
 -   [ ] Remove hardcoding of test user within the API routes
--   [ ] Implement create user flow
+-   [x] Implement create user flow
