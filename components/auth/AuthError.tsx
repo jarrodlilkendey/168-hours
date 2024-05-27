@@ -1,4 +1,4 @@
-export const SignInError = ({ error }: { error: string | Array<string> }) => {
+export const AuthError = ({ error }: { error: string | Array<string> }) => {
     const errors = typeof error === 'string' ? [error] : error
 
     return (

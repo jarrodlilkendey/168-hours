@@ -15,7 +15,6 @@ export const Auth: React.FC<{ children: ReactElement }> = ({ children }) => {
     useEffect(() => {
         if (!isLoggedIn) {
             router.push(`/login?callbackUrl=${router.asPath}`)
-            // router.push(`/auth/signin?callbackUrl=${router.asPath}`)
         }
     }, [isLoggedIn, router])
 
