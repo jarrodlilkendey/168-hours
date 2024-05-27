@@ -7,16 +7,16 @@ it('runs auth flow for successful login to protected page', () => {
     )
 
     // enter credentials
-    cy.findByLabelText(/Email address/i)
-        .clear()
-        .type(Cypress.env('TEST_USER_EMAIL'))
+    cy.findByTestId('sign-in-form').within(() => {
+        cy.findByLabelText(/Email address/i)
+            .clear()
+            .type(Cypress.env('TEST_USER_EMAIL'))
 
-    cy.findByLabelText(/password/i)
-        .clear()
-        .type(Cypress.env('TEST_USER_PASSWORD'))
+        cy.findByLabelText(/password/i)
+            .clear()
+            .type(Cypress.env('TEST_USER_PASSWORD'))
 
-    // submit form
-    cy.findByRole('main').within(() => {
+        // submit form
         cy.findByRole('button', { name: /Sign in/i }).click()
     })
 
@@ -33,16 +33,16 @@ it('runs auth flow for failed login to protected page', () => {
     )
 
     // enter credentials
-    cy.findByLabelText(/Email address/i)
-        .clear()
-        .type(Cypress.env('TEST_USER_EMAIL'))
+    cy.findByTestId('sign-in-form').within(() => {
+        cy.findByLabelText(/Email address/i)
+            .clear()
+            .type(Cypress.env('TEST_USER_EMAIL'))
 
-    cy.findByLabelText(/password/i)
-        .clear()
-        .type('incorrect password')
+        cy.findByLabelText(/password/i)
+            .clear()
+            .type('incorrect password')
 
-    // submit form
-    cy.findByRole('main').within(() => {
+        // submit form
         cy.findByRole('button', { name: /Sign in/i }).click()
     })
 
@@ -54,8 +54,10 @@ it('redirects to sign in for protected pages', () => {
     cy.fixture('protected-pages.json').then((protectedPages) => {
         protectedPages.forEach((page) => {
             cy.task('db:reset').visit(page)
-            cy.findByLabelText(/Email address/i).should('exist')
-            cy.findByLabelText(/password/i).should('exist')
+            cy.findByTestId('sign-in-form').within(() => {
+                cy.findByLabelText(/Email address/i).should('exist')
+                cy.findByLabelText(/password/i).should('exist')
+            })
         })
     })
 })
