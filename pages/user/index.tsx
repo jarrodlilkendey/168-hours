@@ -1,12 +1,6 @@
 import { useSession } from 'next-auth/react'
 
-// data strategy: Client-Side Rendering with SWR (within UserReservations component)
-// (static pages or ISR doesn't make sense; only one user is using this page!
-// no advantage to caching.)
-// Why not SSR? no need for SEO either, esp since it's behind auth barrier!
-//    plus SSR is slow
-
-export default function UserProfile() {
+export default function UserPage() {
     const { data: session } = useSession()
 
     const userId = session?.user?.user?.id
@@ -20,4 +14,4 @@ export default function UserProfile() {
     )
 }
 
-UserProfile.auth = true
+UserPage.auth = true
