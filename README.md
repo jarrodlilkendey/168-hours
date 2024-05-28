@@ -40,7 +40,7 @@ Self host the web application and database using infrastructure as code with Dig
 
 ## Todo
 
--   [ ] Implement some tests with mock service worker
+-   [ ] Implement some tests with mock service worker (blocked see [this issue](https://github.com/mswjs/msw/issues/1877))
 -   [ ] Fix broken API route tests returning 405s and re-enable API tests
 -   [ ] Implement observability
 -   [ ] Implement security scans including static code analysis, static application security testing (SAST), and dynamic application security testing (DAST)
