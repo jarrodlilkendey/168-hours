@@ -50,5 +50,8 @@ Self host the web application and database using infrastructure as code with Dig
 -   [ ] IAC for Ubuntu setup security hardening tasks
 -   [ ] Migrate from docker compose into kubernetes for hosting the application
 -   [ ] Improve application look and feel
+-   [ ] Implement more API tests in Cypress
+-   [ ] Test coverage reporting with Cypress
+-   [ ] Test coverage reporting with React Testing Library
 -   [x] Remove hardcoding of test user within the API routes
 -   [x] Implement create user flow
