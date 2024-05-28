@@ -16,12 +16,8 @@ jobs:
                   DATABASE_URL: ${{ secrets.DATABASE_URL }}
               run: |
                   npm run prisma:migrate:deploy
-            - name: Unit Tests (Jest, React Test Library and Mock Service Worker UI tests)
+            - name: Unit Tests (Jest and React Test Library UI tests)
               run: npm run test:ui
-            # - name: API Integration Tests (Jest and next-test-api-route-handler API tests)
-            #   env:
-            #       DATABASE_URL: ${{ secrets.DATABASE_URL }}
-            #   run: npm run test:api
             - name: create .env
               run: |
                   touch .env.test.local
