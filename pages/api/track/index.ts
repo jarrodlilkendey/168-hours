@@ -7,13 +7,44 @@ import {
     createTimeEntry,
 } from '@/lib/prisma/queries/time-entries'
 
+import { getServerSession } from 'next-auth/next'
+import { authOptions } from '../auth/[...nextauth]'
+
 const handler = createHandler(revalidationRoutes.track)
+
 handler.get(async (req: NextApiRequest, res: NextApiResponse) => {
-    res.json(await getMyTimeEntries())
+    const session = await getServerSession(req, res, authOptions)
+    if (!session) {
+        res.status(400).json({ message: 'Not authorized' })
+    }
+
+    const userId = session?.user.user.id
+    if (!userId) {
+        res.status(400).json({ message: 'Not authorized' })
+    }
+
+    res.json(await getMyTimeEntries(userId))
 })
 
 handler.post(async (req: NextApiRequest, res: NextApiResponse) => {
-    const newTimeEntry = await createTimeEntry(req.body)
+    const session = await getServerSession(req, res, authOptions)
+    if (!session) {
+        res.status(400).json({ message: 'Not authorized' })
+    }
+
+    const userId = session?.user.user.id
+    if (!userId) {
+        res.status(400).json({ message: 'Not authorized' })
+    }
+
+    const { label, start, end, projectId } = req.body
+    const newTimeEntry = await createTimeEntry({
+        label,
+        start,
+        end,
+        projectId,
+        userId,
+    })
 
     return res.json({ timeEntry: newTimeEntry })
 })

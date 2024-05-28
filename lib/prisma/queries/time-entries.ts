@@ -4,9 +4,9 @@ import { TimeEntryPutData, TimeEntryPatchData } from '@/lib/timeEntries/types'
 import prisma from '@/lib/prisma'
 import { TimeEntry } from '@prisma/client'
 
-export const getMyTimeEntries = async () => {
+export const getMyTimeEntries = async (userId: number) => {
     const user = await prisma.user.findUnique({
-        where: { email: 'test@test.test' },
+        where: { id: userId },
     })
 
     if (!user) {
@@ -25,8 +25,6 @@ export const getTimeEntryById = (id: number) =>
     prisma.timeEntry.findUniqueOrThrow({ where: { id } })
 
 export const createTimeEntry = async (timeEntry: TimeEntryPutData) => {
-    console.log('createTimeEntry', timeEntry)
-
     const newTimeEntry: TimeEntry = await prisma.timeEntry.create({
         data: timeEntry,
     })
@@ -35,8 +33,6 @@ export const createTimeEntry = async (timeEntry: TimeEntryPutData) => {
 }
 
 export const updateTimeEntry = async (timeEntry: TimeEntryPatchData) => {
-    console.log('updateTimeEntry', timeEntry)
-
     const updatedTimeEntry: TimeEntry = await prisma.timeEntry.update({
         where: { id: timeEntry.id },
         data: timeEntry,
@@ -46,20 +42,16 @@ export const updateTimeEntry = async (timeEntry: TimeEntryPatchData) => {
 }
 
 export const deleteTimeEntry = async (id: number) => {
-    console.log('deleteTimeEntry', id)
     return prisma.timeEntry.delete({ where: { id } })
 }
 
 export const stopTimeEntry = async (id: number) => {
-    console.log('stopTimeEntry', id)
     const updatedTimeEntry: TimeEntry = await prisma.timeEntry.update({
         where: { id: id },
         data: {
             end: new Date(),
         },
     })
-
-    console.log('stopTimeEntry', updatedTimeEntry)
 
     return prisma.timeEntry.findUnique({ where: { id: updatedTimeEntry.id } })
 }

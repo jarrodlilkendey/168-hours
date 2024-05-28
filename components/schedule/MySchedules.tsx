@@ -16,15 +16,11 @@ const getSchedulesViaAPI = async () => {
 const createScheduleViaAPI = async () => {
     const { data } = await axiosInstance.post(`/api/${routes.schedules}`, {
         name: 'New Schedule',
-        userId: 1,
     })
     return data
 }
 
 export const MySchedules = () => {
-    // const { data: session, status } = useSession()
-    // if (!session?.user.user.email) return <p>Loading...</p>
-
     const {
         data: schedules,
         error,
@@ -40,12 +36,9 @@ export const MySchedules = () => {
         }
     )
 
-    console.log({ schedules, error, isValidating })
-
     return (
         <div>
             <h1 className='text-3xl font-bold'>My Schedules</h1>
-            {/* <p>{session!.user.user.email}</p> */}
             <div className=''>
                 {schedules?.map((schedule) => (
                     <div key={schedule.id}>

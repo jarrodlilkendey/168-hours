@@ -3,9 +3,9 @@ import { SchedulePutData } from '@/lib/schedules/types'
 
 import prisma from '@/lib/prisma'
 
-export const getMySchedules = async () => {
+export const getMySchedules = async (userId: number) => {
     const user = await prisma.user.findUnique({
-        where: { email: 'test@test.test' },
+        where: { id: userId },
     })
 
     if (!user) {

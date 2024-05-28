@@ -4,9 +4,9 @@ import { ProjectPutData, ProjectPatchData } from '@/lib/projects/types'
 import prisma from '@/lib/prisma'
 import { Project } from '@prisma/client'
 
-export const getMyProjects = async () => {
+export const getMyProjects = async (userId: number) => {
     const user = await prisma.user.findUnique({
-        where: { email: 'test@test.test' },
+        where: { id: userId },
     })
 
     if (!user) {

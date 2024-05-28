@@ -47,5 +47,5 @@ Self host the web application and database using infrastructure as code with Dig
 -   [ ] Implement infra as code for a dev and prod environment for both the application server and the database server
 -   [ ] Migrate from docker compose into kubernetes for hosting the applucation
 -   [ ] Improve application look in feel
--   [ ] Remove hardcoding of test user within the API routes
+-   [x] Remove hardcoding of test user within the API routes
 -   [x] Implement create user flow
