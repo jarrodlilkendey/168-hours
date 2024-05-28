@@ -52,6 +52,6 @@ Self host the web application and database using infrastructure as code with Dig
 -   [ ] Improve application look and feel
 -   [ ] Implement more API tests in Cypress
 -   [ ] Test coverage reporting with Cypress
--   [ ] Test coverage reporting with React Testing Library
+-   [x] Test coverage reporting with React Testing Library
 -   [x] Remove hardcoding of test user within the API routes
 -   [x] Implement create user flow
