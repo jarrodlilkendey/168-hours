@@ -11,11 +11,12 @@ const createJestConfig = nextJest({
 
 // Add any custom config to be passed to Jest
 const customJestConfig = {
+    rootDir: '../..',
     moduleNameMapper: {
         // Handle module aliases
         '^@/(.*)$': '<rootDir>/../../$1',
     },
-    setupFilesAfterEnv: ['./jest.setup.ts'],
+    setupFilesAfterEnv: ['./__tests__/ui/jest.setup.ts'],
     testRegex: '(/./.*|(\\.|/)(test))\\.[jt]sx?$',
     // if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
     moduleDirectories: ['node_modules', '<rootDir>/'],
@@ -24,8 +25,27 @@ const customJestConfig = {
     testEnvironmentOptions: {
         customExportConditions: [''],
     },
-    setupFiles: ['./jest.polyfills.js'],
+    setupFiles: ['./__tests__/ui/jest.polyfills.js'],
     moduleFileExtensions: [...defaults.moduleFileExtensions, 'ts', 'tsx'],
+    collectCoverage: true,
+    coverageProvider: 'v8',
+    collectCoverageFrom: [
+        // 'components/**',
+        // 'pages/**',
+        // 'lib/**',
+        '**/*.{js,jsx,ts,tsx}',
+        '!**/*.d.ts',
+        '!**/*.config.{js,ts}',
+        '!**/*.setup.{js,ts}',
+        '!**/node_modules/**',
+        '!**/prisma/**',
+        '!**/.next/**',
+        '!**/cypress/**',
+        '!**/coverage/**',
+        '!**/__tests__/api/**',
+        '!**/components/ui/**',
+    ],
+    coverageDirectory: './coverage',
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
