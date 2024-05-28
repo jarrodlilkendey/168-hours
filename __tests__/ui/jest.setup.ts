@@ -9,7 +9,7 @@ import '@testing-library/jest-dom'
 
 import { describe, expect, test } from '@jest/globals'
 
-import { server } from '@/__mocks__/msw/server'
+// import { server } from '@/__mocks__/msw/server'
 
 // mock supabase methods
 // can't mock from test files: https://github.com/facebook/jest/issues/335
@@ -42,21 +42,21 @@ console.warn = (warning) => {
         console.log('WARNING:', warning)
 }
 
-beforeAll(() => {
-    // msw: Establish API mocking before all tests.
-    server.listen()
+// beforeAll(() => {
+//     // msw: Establish API mocking before all tests.
+//     server.listen()
 
-    // reset mocks
-    jest.resetModules()
-})
+//     // reset mocks
+//     jest.resetModules()
+// })
 
-afterEach(() => {
-    // msw: Reset any request handlers that we may add during the tests,
-    // so they don't affect other tests.
-    server.resetHandlers()
-})
+// afterEach(() => {
+//     // msw: Reset any request handlers that we may add during the tests,
+//     // so they don't affect other tests.
+//     server.resetHandlers()
+// })
 
-afterAll(() => {
-    // msw: Clean up after the tests are finished.
-    server.close()
-})
+// afterAll(() => {
+//     // msw: Clean up after the tests are finished.
+//     server.close()
+// })

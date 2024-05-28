@@ -10,20 +10,20 @@ import '@testing-library/jest-dom/extend-expect'
 // eslint-disable-next-line no-unused-vars
 import { describe, expect, test } from '@jest/globals'
 
-import { server } from './src/__mocks__/msw/server'
+// import { server } from './src/__mocks__/msw/server'
 
-beforeAll(() => {
-    // msw: Establish API mocking before all tests.
-    server.listen()
-})
+// beforeAll(() => {
+//     // msw: Establish API mocking before all tests.
+//     server.listen()
+// })
 
-afterEach(() => {
-    // msw: Reset any request handlers that we may add during the tests,
-    // so they don't affect other tests.
-    server.resetHandlers()
-})
+// afterEach(() => {
+//     // msw: Reset any request handlers that we may add during the tests,
+//     // so they don't affect other tests.
+//     server.resetHandlers()
+// })
 
-afterAll(() => {
-    // msw: Clean up after the tests are finished.
-    server.close()
-})
+// afterAll(() => {
+//     // msw: Clean up after the tests are finished.
+//     server.close()
+// })
