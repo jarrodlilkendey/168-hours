@@ -6,9 +6,8 @@ Practice writing unit, integration and end to end tests using the following tech
 
 1. React / NextJS / NextAuth / Prisma / Typescript
 2. React Test Library
-3. Mock Service Worker
-4. next-test-api-route-handler
-5. Jest
+3. Cypress
+4. Jest
 
 Put all tests in a continuous integration continous deployment pipeline using GitHub Actions.
 
@@ -18,9 +17,8 @@ Self host the web application and database using infrastructure as code with Dig
 
 1. Follow the .env file templates to complete `.env`, `env.local`, `env.test.local`
 2. Run with locally `npm run dev`
-3. Run unit tests with React Test Library and Mock Service Worker via Jest using `npm run test:ui`
-4. Run API integration tests with next-test-api-route-handler with Jest using `npm run test:api`
-5. Run Cypress integration and E2E tests with `npm run build:test` then `npm run cypress:start`
+3. Run unit tests with React Test Library via Jest using `npm run test:ui`
+4. Run Cypress integration, API integration tests, and E2E tests with `npm run build:test` then `npm run cypress:start`
 
 ## Features
 
