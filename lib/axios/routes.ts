@@ -7,4 +7,5 @@ export enum routes {
     projects = 'projects',
     freetime = 'freetime',
     habits = 'habits',
+    tools = 'tools',
 }

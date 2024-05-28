@@ -19,7 +19,6 @@ interface ComponentProps {}
 const createProjectViaAPI = async ({ name }: { name: string }) => {
     const { data } = await axiosInstance.post(`/api/${routes.projects}`, {
         name,
-        userId: 1,
     })
     return data
 }

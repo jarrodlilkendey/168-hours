@@ -36,7 +36,6 @@ const createEntryViaAPI = async ({
 
     const { data } = await axiosInstance.post(`/api/${routes.track}`, {
         label,
-        userId: 1,
         start: new Date(),
         projectId: projectIdNumber,
     })

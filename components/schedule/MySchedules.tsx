@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button'
-import { useSession } from 'next-auth/react'
 import useSWR from 'swr'
 import { axiosInstance } from '@/lib/axios/axiosInstance'
 import { routes } from '@/lib/axios/routes'
