@@ -40,12 +40,19 @@ Self host the web application and database using infrastructure as code with Dig
 
 ## Todo
 
--   [ ] Fix broken API route tests returning 405s
 -   [ ] Implement some tests with mock service worker
+-   [ ] Fix broken API route tests returning 405s and re-enable API tests
 -   [ ] Implement observability
 -   [ ] Implement security scans including static code analysis, static application security testing (SAST), and dynamic application security testing (DAST)
 -   [ ] Implement infra as code for a dev and prod environment for both the application server and the database server
--   [ ] Migrate from docker compose into kubernetes for hosting the applucation
--   [ ] Improve application look in feel
+-   [ ] IAC for dev application server
+-   [ ] IAC for prod application server
+-   [ ] IAC for dev database server
+-   [ ] IAC for prod database server
+-   [ ] IAC for cloudflare pointing dev.168hoursapp.com to dev application server and 168hoursapp.com to prod application server
+-   [ ] IAC to configure firewall on the production database droplets to restrict incoming incoming to only the production application server
+-   [ ] IAC for Ubuntu setup security hardening tasks
+-   [ ] Migrate from docker compose into kubernetes for hosting the application
+-   [ ] Improve application look and feel
 -   [x] Remove hardcoding of test user within the API routes
 -   [x] Implement create user flow
