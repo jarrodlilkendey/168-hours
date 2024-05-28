@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { mockTools } from '@/__mocks__/mockData'
+// import { mockTools } from '@/__mocks__/mockData'
 
 import Home from '../../../pages/index'
 
