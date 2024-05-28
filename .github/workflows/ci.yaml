@@ -18,10 +18,10 @@ jobs:
                   npm run prisma:migrate:deploy
             - name: Unit Tests (Jest, React Test Library and Mock Service Worker UI tests)
               run: npm run test:ui
-            - name: API Integration Tests (Jest and next-test-api-route-handler API tests)
-              env:
-                  DATABASE_URL: ${{ secrets.DATABASE_URL }}
-              run: npm run test:api
+            # - name: API Integration Tests (Jest and next-test-api-route-handler API tests)
+            #   env:
+            #       DATABASE_URL: ${{ secrets.DATABASE_URL }}
+            #   run: npm run test:api
             - name: create .env
               run: |
                   touch .env.test.local
@@ -35,7 +35,7 @@ jobs:
                   echo NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} >> .env.test.local
                   echo TEST_USER_EMAIL=${{ secrets.TEST_USER_EMAIL }} >> .env.test.local
                   echo TEST_USER_PASSWORD=${{ secrets.TEST_USER_PASSWORD }} >> .env.test.local
-            - name: Cypress run
+            - name: Cypress API, integration and E2E tests
               uses: cypress-io/github-action@v6
               with:
                   build: npm run build:test
