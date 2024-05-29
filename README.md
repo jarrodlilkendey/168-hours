@@ -38,8 +38,17 @@ Self host the web application and database using infrastructure as code with Dig
 
 ## Todo
 
--   [ ] Implement observability
+### Observability
+
+-   [ ] Enable OpenTelemetry in Next.js
+-   [ ] IAC for a Digital Ocean droplet to host the observability and monitoring infra / applications
+
+### Security
+
 -   [ ] Implement security scans including static code analysis, static application security testing (SAST), and dynamic application security testing (DAST)
+
+### Infra as Code
+
 -   [ ] Implement infra as code for a dev and prod environment for both the application server and the database server
 -   [ ] IAC for dev application server
 -   [ ] IAC for prod application server
@@ -48,10 +57,18 @@ Self host the web application and database using infrastructure as code with Dig
 -   [ ] IAC for cloudflare pointing dev.168hoursapp.com to dev application server and 168hoursapp.com to prod application server
 -   [ ] IAC to configure firewall on the production database droplets to restrict incoming incoming to only the production application server
 -   [ ] IAC for Ubuntu setup security hardening tasks
+
+### Scalability
+
 -   [ ] Migrate from docker compose into kubernetes for hosting the application
--   [ ] Improve application look and feel
+
+### Test Automation
+
 -   [ ] Implement more API tests in Cypress
 -   [ ] Test coverage reporting with Cypress
--   [x] Test coverage reporting with React Testing Library
--   [x] Remove hardcoding of test user within the API routes
--   [x] Implement create user flow
+
+### New Features
+
+### UX
+
+-   [ ] Improve application look and feel
