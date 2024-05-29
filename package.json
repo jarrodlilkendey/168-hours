@@ -52,7 +52,6 @@
         "zod": "^3.23.8"
     },
     "devDependencies": {
-        "cypress": "13.10.0",
         "@testing-library/cypress": "10.0.1",
         "@testing-library/jest-dom": "^6.4.5",
         "@testing-library/react": "14.3.1",
@@ -62,7 +61,9 @@
         "@types/node": "^20.12.12",
         "@types/pbkdf2": "^3.1.2",
         "@types/react": "18.3.3",
+        "@vercel/otel": "^1.8.3",
         "autoprefixer": "^10.4.19",
+        "cypress": "13.10.0",
         "eslint": "^8.57.0",
         "eslint-config-next": "^14.2.3",
         "eslint-plugin-prettier": "^5.1.3",
