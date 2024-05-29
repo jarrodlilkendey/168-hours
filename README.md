@@ -40,7 +40,8 @@ Self host the web application and database using infrastructure as code with Dig
 
 ### Observability
 
--   [ ] Enable OpenTelemetry in Next.js
+-   [x] Enable OpenTelemetry in Next.js
+-   [ ] Enable OpenTelemetry spans for the webserver response, the api response, the ORM time, and the database query time
 -   [ ] IAC for a Digital Ocean droplet to host the observability and monitoring infra / applications
 
 ### Security
